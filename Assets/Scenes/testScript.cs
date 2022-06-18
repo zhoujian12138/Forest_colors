@@ -16,4 +16,8 @@ public class testScript : MonoBehaviour
     {
         
     }
+    void func1()
+    {
+
+    }
 }
