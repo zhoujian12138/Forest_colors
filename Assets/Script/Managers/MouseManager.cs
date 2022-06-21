@@ -1,14 +1,18 @@
 using UnityEngine;
 using System;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
+[System.Serializable]
+public class EventVector3 : UnityEvent<Vector3> { }
 public class MouseManager : MonoBehaviour
 {
 
     public Texture2D point, doorway, attack, target, arrow;
     RaycastHit hitInfo;
-    public event Action<Vector3> OnMouseClicked;
-    public event Action<GameObject> OnEnemyClicked;
+    //public event Action<Vector3> OnMouseClicked;
+    public EventVector3 OnMouseClicked;
+    //public event Action<GameObject> OnEnemyClicked;
 
     //protected override void Awake()
     //{
@@ -32,29 +36,29 @@ public class MouseManager : MonoBehaviour
         //    return;
         //}
 
-        //if (Physics.Raycast(ray, out hitInfo))
-        //{
-        //    //«–ªª Û±ÍÃ˘Õº
-        //    switch (hitInfo.collider.gameObject.tag)
-        //    {
-        //        case "Ground":
-        //            Cursor.SetCursor(target, new Vector2(16, 16), CursorMode.Auto);
-        //            break;
-        //        case "Enemy":
-        //            Cursor.SetCursor(attack, new Vector2(16, 16), CursorMode.Auto);
-        //            break;
-        //        case "Portal":
-        //            Cursor.SetCursor(doorway, new Vector2(16, 16), CursorMode.Auto);
-        //            break;
-        //        case "Item":
-        //            Cursor.SetCursor(point, new Vector2(16, 16), CursorMode.Auto);
-        //            break;
+        if (Physics.Raycast(ray, out hitInfo))
+        {
+            //«–ªª Û±ÍÃ˘Õº
+            switch (hitInfo.collider.gameObject.tag)
+            {
+                case "Ground":
+                    Cursor.SetCursor(target, new Vector2(16, 16), CursorMode.Auto);
+                    break;
+                case "Enemy":
+                    Cursor.SetCursor(attack, new Vector2(16, 16), CursorMode.Auto);
+                    break;
+                case "Portal":
+                    Cursor.SetCursor(doorway, new Vector2(16, 16), CursorMode.Auto);
+                    break;
+                case "Item":
+                    Cursor.SetCursor(point, new Vector2(16, 16), CursorMode.Auto);
+                    break;
 
-        //        default:
-        //            Cursor.SetCursor(arrow, new Vector2(16, 16), CursorMode.Auto);
-        //            break;
-        //    }
-        //}
+                default:
+                    Cursor.SetCursor(arrow, new Vector2(16, 16), CursorMode.Auto);
+                    break;
+            }
+        }
     }
 
     void MouseControl()
