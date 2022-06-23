@@ -6,7 +6,7 @@ public class CharacterStats : MonoBehaviour
     //public event Action<int, int> UpdateHealthBarOnAttack;
     //public CharacterData_SO templateData;
     public CharacterData_SO characterData;
-    //public AttackData_SO attackData;
+    public AttackData_SO attackData;
     //private AttackData_SO baseAttackData;
     //private RuntimeAnimatorController baseAnimator;
 
