@@ -7,6 +7,7 @@ using UnityEngine.AI;
 public class PlayerController : MonoBehaviour
 {
     private NavMeshAgent agent;
+    private Animator anim;
     //    private Animator anim;
     //    //private CharacterStats characterStats;
 
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        anim = GetComponent<Animator>();
         //anim = GetComponent<Animator>();
         //characterStats = GetComponent<CharacterStats>();
 
@@ -46,8 +48,8 @@ public class PlayerController : MonoBehaviour
         //MouseManager.Instance.OnEnemyClicked -= EventAttack;
     }
 
-    //    void Update()
-    //    {
+        void Update()
+        {
     //        isDead = characterStats.CurrentHealth == 0;
 
     //        if (isDead)
@@ -56,16 +58,16 @@ public class PlayerController : MonoBehaviour
     //        // KeyboardControl();
     //        // ActionAttack();
 
-    //        SwitchAnimation();
+            SwitchAnimation();
 
     //        lastAttackTime -= Time.deltaTime;
-    //    }
+        }
 
-    //    private void SwitchAnimation()
-    //    {
-    //        anim.SetFloat("Speed", agent.velocity.sqrMagnitude);
-    //        anim.SetBool("Death", isDead);
-    //    }
+        private void SwitchAnimation()
+        {
+           anim.SetFloat("Speed", agent.velocity.sqrMagnitude);
+           //anim.SetBool("Death", isDead);
+        }
 
     public void MoveToTarget(Vector3 target)
     {
