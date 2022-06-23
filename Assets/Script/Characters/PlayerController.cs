@@ -8,11 +8,10 @@ public class PlayerController : MonoBehaviour
 {
     private NavMeshAgent agent;
     private Animator anim;
-    //    private Animator anim;
     //    //private CharacterStats characterStats;
 
-    //    //private GameObject attackTarget;
-    //    //private float lastAttackTime;
+        private GameObject attackTarget;
+        private float lastAttackTime;
     //    //public bool isDead;
 
     //    //private float stopDistance;
@@ -37,8 +36,41 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         MouseManager.Instance.OnMouseClicked += MoveToTarget;
+        MouseManager.Instance.OnEnemyClicked += EventAttack;
         //SaveManager.Instance.LoadPlayerData();
 
+    }
+
+    private void EventAttack(GameObject target)
+    {
+        if(target != null)
+        {
+            attackTarget = target;
+            StartCoroutine(MoveToAttackTarget());
+        }
+    }
+
+    IEnumerator MoveToAttackTarget()
+    {
+        agent.isStopped = false;
+
+        transform.LookAt(attackTarget.transform);
+
+        while(Vector3.Distance(attackTarget.transform.position,transform.position)>1)
+        {
+            agent.destination = attackTarget.transform.position;
+            yield return null;
+        }
+        
+        agent.isStopped = true;
+        //Attack
+
+        if(lastAttackTime < 0)
+        {
+            anim.SetTrigger("Attack");
+            //重置冷却时间
+            lastAttackTime = 0.5f;
+        }
     }
 
     void OnDisable()
@@ -60,7 +92,7 @@ public class PlayerController : MonoBehaviour
 
             SwitchAnimation();
 
-    //        lastAttackTime -= Time.deltaTime;
+            lastAttackTime -= Time.deltaTime;
         }
 
         private void SwitchAnimation()
@@ -71,52 +103,52 @@ public class PlayerController : MonoBehaviour
 
     public void MoveToTarget(Vector3 target)
     {
-        //StopAllCoroutines();
+        StopAllCoroutines();
         //if (isDead) return;
 
         //agent.stoppingDistance = stopDistance;
-        //agent.isStopped = false;
+        agent.isStopped = false;
         agent.destination = target;
     }
 
-    //    private void EventAttack(GameObject target)
-    //    {
-    //        if (isDead) return;
+    //  private void EventAttack(GameObject target)
+    //  {
+    //     if (isDead) return;
 
-    //        if (target != null)
-    //        {
-    //            attackTarget = target;
-    //            characterStats.isCritical = UnityEngine.Random.value < characterStats.attackData.criticalChance;
-    //            StartCoroutine(MoveToAttackTarget());
-    //        }
+    //     if (target != null)
+    //     {
+    //         attackTarget = target;
+    //         characterStats.isCritical = UnityEngine.Random.value < characterStats.attackData.criticalChance;
+    //         StartCoroutine(MoveToAttackTarget());
+    //     }
+    // }
+
+    //ienumerator movetoattacktarget()
+    //{
+    //    agent.isstopped = false;
+    //    agent.stoppingdistance = characterstats.attackdata.attackrange;
+
+    //    transform.lookat(attacktarget.transform);
+
+    //    if (attacktarget == null)
+    //        yield break;
+
+    //    while (vector3.distance(attacktarget.transform.position, transform.position) > characterstats.attackdata.attackrange)
+    //    {
+    //        agent.destination = attacktarget.transform.position;
+    //        yield return null;
     //    }
 
-    //    IEnumerator MoveToAttackTarget()
+    //    agent.isstopped = true;
+    //    //attack
+    //    if (lastattacktime < 0)
     //    {
-    //        agent.isStopped = false;
-    //        agent.stoppingDistance = characterStats.attackData.attackRange;
-
-    //        transform.LookAt(attackTarget.transform);
-
-    //        if (attackTarget == null)
-    //            yield break;
-
-    //        while (Vector3.Distance(attackTarget.transform.position, transform.position) > characterStats.attackData.attackRange)
-    //        {
-    //            agent.destination = attackTarget.transform.position;
-    //            yield return null;
-    //        }
-
-    //        agent.isStopped = true;
-    //        //Attack
-    //        if (lastAttackTime < 0)
-    //        {
-    //            anim.SetBool("Critical", characterStats.isCritical);
-    //            anim.SetTrigger("Attack");
-    //            //重置冷却时间
-    //            lastAttackTime = characterStats.attackData.coolDown;
-    //        }
+    //        anim.setbool("critical", characterstats.iscritical);
+    //        anim.settrigger("attack");
+    //        //重置冷却时间
+    //        lastattacktime = characterstats.attackdata.cooldown;
     //    }
+    //}
 
     //    //Animation Event
     //    void Hit()
