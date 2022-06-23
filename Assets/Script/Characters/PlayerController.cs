@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     private NavMeshAgent agent;
     private Animator anim;
-    private CharacterStats characterStats;
+    //    //private CharacterStats characterStats;
 
         private GameObject attackTarget;
         private float lastAttackTime;
@@ -56,7 +56,8 @@ public class PlayerController : MonoBehaviour
 
         transform.LookAt(attackTarget.transform);
 
-        while(Vector3.Distance(attackTarget.transform.position,transform.position)>characterStats.attackData.attackRange)
+        //TODO:ÐÞ¸Ä¹¥»÷·¶Î§²ÎÊý
+        while(Vector3.Distance(attackTarget.transform.position,transform.position)>1)
         {
             agent.destination = attackTarget.transform.position;
             yield return null;
