@@ -11,7 +11,7 @@ public class MouseManager : MonoBehaviour
     public Texture2D point, doorway, attack, target, arrow;
     RaycastHit hitInfo;
     public event Action<Vector3> OnMouseClicked;
-    //public event Action<GameObject> OnEnemyClicked;
+    public event Action<GameObject> OnEnemyClicked;
 
     //protected override void Awake()
     //{
@@ -75,8 +75,8 @@ public class MouseManager : MonoBehaviour
                     Debug.Log(hitInfo.point);
                     OnMouseClicked?.Invoke(hitInfo.point);
             }
-            //if (hitInfo.collider.gameObject.CompareTag("Enemy"))
-            //    OnEnemyClicked?.Invoke(hitInfo.collider.gameObject);
+            if (hitInfo.collider.gameObject.CompareTag("Enemy"))
+                OnEnemyClicked?.Invoke(hitInfo.collider.gameObject);
             //if (hitInfo.collider.gameObject.CompareTag("Attackable"))
             //    OnEnemyClicked?.Invoke(hitInfo.collider.gameObject);
             //if (hitInfo.collider.gameObject.CompareTag("Portal"))
