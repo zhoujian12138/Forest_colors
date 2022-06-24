@@ -255,7 +255,7 @@ MonoBehaviour:
     name: Rock_05
   - gameObject: {fileID: 108507113624723981, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d, type: 3}
     settings:
-      m_Strength: 10.483193
+      m_Strength: 65.05882
       m_RotationRangeMin: {x: 0, y: 0, z: 0}
       m_RotationRangeMax: {x: 0, y: 0, z: 0}
       m_ScaleRangeMin: {x: 1, y: 1, z: 1}
@@ -303,7 +303,7 @@ MonoBehaviour:
     name: Tree_02
   - gameObject: {fileID: 6941765000743290380, guid: c60edd51c065ceb46b345849a03bc106, type: 3}
     settings:
-      m_Strength: 52.579838
+      m_Strength: 83.77731
       m_RotationRangeMin: {x: 0, y: 0, z: 0}
       m_RotationRangeMax: {x: 0, y: 0, z: 0}
       m_ScaleRangeMin: {x: 1, y: 1, z: 1}
@@ -431,7 +431,7 @@ MonoBehaviour:
     name: Env_Tree_Type1_1
   - gameObject: {fileID: 891655496606335346, guid: bd6dee57784823a42852a592eb968157, type: 3}
     settings:
-      m_Strength: 50
+      m_Strength: 65.05882
       m_RotationRangeMin: {x: 0, y: 0, z: 0}
       m_RotationRangeMax: {x: 0, y: 0, z: 0}
       m_ScaleRangeMin: {x: 1, y: 1, z: 1}

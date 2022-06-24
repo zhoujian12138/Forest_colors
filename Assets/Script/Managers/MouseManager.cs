@@ -72,7 +72,6 @@ public class MouseManager : MonoBehaviour
         {
             if (hitInfo.collider.gameObject.CompareTag("Ground"))
             {          
-                    Debug.Log(hitInfo.point);
                     OnMouseClicked?.Invoke(hitInfo.point);
             }
             if (hitInfo.collider.gameObject.CompareTag("Enemy"))
