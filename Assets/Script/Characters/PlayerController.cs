@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
 
     private GameObject attackTarget;
     private float lastAttackTime;
-    //public bool isDead;
+    public bool isDead;
 
     private float stopDistance;
 
@@ -107,10 +107,10 @@ public class PlayerController : MonoBehaviour
 
         void Update()
         {
-    //        isDead = characterStats.CurrentHealth == 0;
+            isDead = characterStats.CurrentHealth == 0;
 
-    //        if (isDead)
-    //            GameManager.Instance.NotifyObservers();
+             if (isDead)
+                GameManager.Instance.NotifyObservers();
 
     //        // KeyboardControl();
     //        // ActionAttack();

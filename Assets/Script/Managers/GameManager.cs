@@ -16,19 +16,19 @@ public class GameManager : Singleton<GameManager>
         base.Awake();
         DontDestroyOnLoad(this);
     }
-    //public void RigisterPlayer(CharacterStats player)
-    //{
-    //    playerStats = player;
+    public void RigisterPlayer(CharacterStats player)
+    {
+        playerStats = player;
 
-    //    followCamera = FindObjectOfType<CinemachineFreeLook>();
+        //followCamera = FindObjectOfType<CinemachineFreeLook>();
 
-    //    if (followCamera != null)
-    //    {
-    //        followCamera.Follow = playerStats.transform.GetChild(2);
-    //        followCamera.LookAt = playerStats.transform.GetChild(2);
-    //    }
-    //}
-
+        //if (followCamera != null)
+        //{
+        //    followCamera.Follow = playerStats.transform.GetChild(2);
+        //    followCamera.LookAt = playerStats.transform.GetChild(2);
+        //}
+    }
+     
     public void AddObserver(IEndGameObserver observer)
     {
         endGameObservers.Add(observer);
