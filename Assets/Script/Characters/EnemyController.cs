@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public enum EnemyStates { GUARD, PATROL, CHASE, DEAD }
 [RequireComponent(typeof(NavMeshAgent))]
-public class EnemyController : MonoBehaviour
+public class EnemyController : MonoBehaviour,IEndGameObserver
 {
     private EnemyStates enemyStates;
     private NavMeshAgent agent;
@@ -133,6 +133,15 @@ public class EnemyController : MonoBehaviour
         attackTarget = null;
         return false;
     }
+<<<<<<< Updated upstream
+=======
+
+    public void EndNotify()
+    {
+        
+    }
+
+>>>>>>> Stashed changes
 
     void PatrolAction()
     {
