@@ -15,18 +15,18 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
     [Header("Basic Settings")]
     public float sightRadius;
     public bool isGuard;
-    private float speed;//¼ÇÂ¼Ô­À´µÄËÙ¶È
+    private float speed;//ï¿½ï¿½Â¼Ô­ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½
     private GameObject attackTarget;
     public float lookAtTime;
     private float remainLookAtTime;
 
-    //Ñ²Âß
+    //Ñ²ï¿½ï¿½
     [Header("Patrol State")]
     public float patrolRange;
     private Vector3 wayPoint;
     private Vector3 guardPos;
 
-    //boolÅäºÏ¶¯»­
+    //boolï¿½ï¿½Ï¶ï¿½ï¿½ï¿½
     bool isWalk;
     bool isChase;
     bool isFollow;
@@ -68,7 +68,7 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
 
     void Update()
     {
-        //ÀÏ°Í²»ÒªÉ¾³ýif
+        //ï¿½Ï°Í²ï¿½ÒªÉ¾ï¿½ï¿½if
         if (!playDead)
         {
             SwitchStates();
@@ -84,7 +84,7 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
     }
     void SwitchStates()
     {
-        //Èç¹û·¢ÏÖplayer ÇÐ»»µ½CHASE
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½player ï¿½Ð»ï¿½ï¿½ï¿½CHASE
         if(FoundPlayer())
         {
             enemyStates = EnemyStates.CHASE;
@@ -93,6 +93,13 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         switch(enemyStates)
         {
             case EnemyStates.GUARD:
+            isChase = false;
+            if(transform.position != guardPos)
+            {
+                isWalk = true;
+
+            }
+            
                 break;
             case EnemyStates.PATROL:
                 PatrolAction();
@@ -110,10 +117,10 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         isWalk = false;
         isChase = true;
         agent.speed = speed;
-        //TODO:×·player£¬ÔÚ¹¥»÷·¶Î§ÄÚÔò¹¥»÷£¬ÅäºÏ¶¯»­
+        //TODO:×·playerï¿½ï¿½ï¿½Ú¹ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½ï¿½ò¹¥»ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½ï¿½ï¿½
         if(!FoundPlayer())
         {
-            //TODO:À­ÍÑ»Øµ½ÉÏÒ»¸ö×´Ì¬
+            //TODO:ï¿½ï¿½ï¿½Ñ»Øµï¿½ï¿½ï¿½Ò»ï¿½ï¿½×´Ì¬
             isFollow = false;
             if (remainLookAtTime > 0)
             {
@@ -150,7 +157,7 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         return false;
     }
 
-    //ÊÕµ½¹ã²¥ºóµÄ´¥·¢º¯Êý
+    //ï¿½Õµï¿½ï¿½ã²¥ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public void EndNotify()
     {
 
@@ -166,7 +173,7 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         isChase = false;
         agent.speed = speed * 0.5f;
 
-        //ÅÐ¶ÏÊÇ·ñµ½ÁËËæ»úÑ²Âßµã
+        //ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ²ï¿½ßµï¿½
         if(Vector3.Distance(wayPoint,transform.position) <= agent.stoppingDistance)
         {
             isWalk = false;
@@ -190,11 +197,11 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         float randomZ = UnityEngine.Random.Range(-patrolRange, patrolRange);
 
         Vector3 randomPoint = new Vector3(guardPos.x + randomX,transform.position.y, guardPos.z + randomZ);
-        //FIXME£º¿ÉÄÜ³öÏÖµÄÎÊÌâ,ÒÔÏÂÊÇÅÐ¶ÏËæ»úµãÊÇ²»ÊÇÄÜ×ß¹ýÈ¥µÄµã
+        //FIXMEï¿½ï¿½ï¿½ï¿½ï¿½Ü³ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¹ï¿½È¥ï¿½Äµï¿½
         NavMeshHit hit;
         wayPoint = NavMesh.SamplePosition(randomPoint,out hit,patrolRange,1)? hit.position:transform.position;
     }
-    //Ñ¡ÖÐÎïÌåÊ±²Å»á»­³öËüµÄÑµÁ··¶Î§
+    //Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½Å»á»­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñµï¿½ï¿½ï¿½ï¿½Î§
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue;
