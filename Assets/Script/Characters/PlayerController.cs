@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     private NavMeshAgent agent;
     private Animator anim;
-    //    //private CharacterStats characterStats;
+    private CharacterStats characterStats;
 
         private GameObject attackTarget;
         private float lastAttackTime;
@@ -53,11 +53,37 @@ public class PlayerController : MonoBehaviour
     IEnumerator MoveToAttackTarget()
     {
         agent.isStopped = false;
+        //agent.stoppingdistance = characterStats.attackdata.attackRange;
 
         transform.LookAt(attackTarget.transform);
 
-        //TODO:ÐÞ¸Ä¹¥»÷·¶Î§²ÎÊý
-        while(Vector3.Distance(attackTarget.transform.position,transform.position)>1)
+        //if (attackTarget == null)
+            //yield break;
+
+        while (Vector3.Distance(attackTarget.transform.position, transform.position) > characterStats.attackData.attackRange)
+        {
+            agent.destination = attackTarget.transform.position;
+            yield return null;
+         }
+
+        agent.isStopped = true;
+        //attack
+        if (lastAttackTime < 0)
+        {
+            anim.SetBool("critical", characterStats.isCritical);
+            anim.SetTrigger("attack");
+            //é‡ç½®å†·å´æ—¶é—´
+            lastAttackTime = characterStats.attackData.coolDown;
+        }
+    }
+    /*IEnumerator MoveToAttackTarget()
+    {
+        agent.isStopped = false;
+
+        transform.LookAt(attackTarget.transform);
+
+        //TODO:ï¿½Þ¸Ä¹ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½ï¿½ï¿½
+        while(Vector3.Distance(attackTarget.transform.position,transform.position)>characterStats.attackData.attackRange)
         {
             agent.destination = attackTarget.transform.position;
             yield return null;
@@ -68,11 +94,12 @@ public class PlayerController : MonoBehaviour
 
         if(lastAttackTime < 0)
         {
+            anim.SetBool("critical", characterstats.iscritical);
             anim.SetTrigger("Attack");
-            //ÖØÖÃÀäÈ´Ê±¼ä
-            lastAttackTime = 0.5f;
+            //é‡ç½®å†·å´æ—¶é—´
+            lastAttackTime = characterStats.attackData.coolDown;
         }
-    }
+    }*/
 
     void OnDisable()
     {
@@ -124,50 +151,26 @@ public class PlayerController : MonoBehaviour
     //     }
     // }
 
-    //ienumerator movetoattacktarget()
-    //{
-    //    agent.isstopped = false;
-    //    agent.stoppingdistance = characterstats.attackdata.attackrange;
-
-    //    transform.lookat(attacktarget.transform);
-
-    //    if (attacktarget == null)
-    //        yield break;
-
-    //    while (vector3.distance(attacktarget.transform.position, transform.position) > characterstats.attackdata.attackrange)
-    //    {
-    //        agent.destination = attacktarget.transform.position;
-    //        yield return null;
-    //    }
-
-    //    agent.isstopped = true;
-    //    //attack
-    //    if (lastattacktime < 0)
-    //    {
-    //        anim.setbool("critical", characterstats.iscritical);
-    //        anim.settrigger("attack");
-    //        //ÖØÖÃÀäÈ´Ê±¼ä
-    //        lastattacktime = characterstats.attackdata.cooldown;
-    //    }
-    //}
+    ////////////////////////////////////////////////////////////////
 
     //    //Animation Event
-    //    void Hit()
-    //    {
-    //        if (attackTarget.CompareTag("Attackable"))
-    //        {
-    //            if (attackTarget.GetComponent<Rock>() && attackTarget.GetComponent<Rock>().rockStates == Rock.RockStates.HitNothing)
-    //            {
-    //                attackTarget.GetComponent<Rock>().rockStates = Rock.RockStates.HitEnemy;
-    //                attackTarget.GetComponent<Rigidbody>().velocity = Vector3.one;
-    //                attackTarget.GetComponent<Rigidbody>().AddForce(transform.forward * 20, ForceMode.Impulse);
-    //            }
-    //        }
-    //        else
-    //        {
-    //            var targetStats = attackTarget.GetComponent<CharacterStats>();
+        void Hit()
+        {
+            var targetStats = attackTarget.GetComponent<CharacterStats>();
+            //if (attackTarget.CompareTag("Attackable"))
+            //{
+               //if (attackTarget.GetComponent<Rock>() && attackTarget.GetComponent<Rock>().rockStates == Rock.RockStates.HitNothing)
+                //{
+                    //attackTarget.GetComponent<Rock>().rockStates = Rock.RockStates.HitEnemy;
+                    //attackTarget.GetComponent<Rigidbody>().velocity = Vector3.one;
+                    //attackTarget.GetComponent<Rigidbody>().AddForce(transform.forward * 20, ForceMode.Impulse);
+                //}
+            //}
+            //else
+            //{
+                //var targetStats = attackTarget.GetComponent<CharacterStats>();
 
-    //            targetStats.TakeDamage(characterStats, targetStats);
-    //        }
-    //    }
+                targetStats.TakeDamage(characterStats, targetStats);
+            //}
+        }
 }

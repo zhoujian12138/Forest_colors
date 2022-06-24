@@ -6,7 +6,7 @@ public class CharacterStats : MonoBehaviour
     //public event Action<int, int> UpdateHealthBarOnAttack;
     //public CharacterData_SO templateData;
     public CharacterData_SO characterData;
-    public AttackData_SO attackData;
+    public  AttackData_SO attackData;
     //private AttackData_SO baseAttackData;
     //private RuntimeAnimatorController baseAnimator;
 
@@ -14,7 +14,7 @@ public class CharacterStats : MonoBehaviour
     //public Transform weaponSlot;
 
     //[HideInInspector]
-    //public bool isCritical;
+    public  bool isCritical;
 
     //void Awake()
     //{
@@ -52,12 +52,12 @@ public class CharacterStats : MonoBehaviour
     }
     #endregion
 
-    //#region Character Combat
+    #region Character Combat
 
-    //public void TakeDamage(CharacterStats attacker, CharacterStats defener)
-    //{
-    //    int damage = Mathf.Max(attacker.CurrentDamage() - defener.CurrentDefence, 0);
-    //    CurrentHealth = Mathf.Max(CurrentHealth - damage, 0);
+    public void TakeDamage(CharacterStats attacker, CharacterStats defener)
+    {
+        int damage = Mathf.Max(attacker.CurrentDamage() - defener.CurrentDefence, 0);
+        CurrentHealth = Mathf.Max(CurrentHealth - damage, 0);
 
     //    if (attacker.isCritical)
     //    {
@@ -65,10 +65,10 @@ public class CharacterStats : MonoBehaviour
     //    }
     //    //Update UI
     //    UpdateHealthBarOnAttack?.Invoke(CurrentHealth, MaxHealth);
-    //    //¾­Ñéupdate
+    //    //ï¿½ï¿½ï¿½ï¿½update
     //    if (CurrentHealth <= 0)
     //        attacker.characterData.UpdateExp(characterData.killPoint);
-    //}
+    }
 
     //public void TakeDamage(int damage, CharacterStats defener)
     //{
@@ -79,19 +79,19 @@ public class CharacterStats : MonoBehaviour
     //        GameManager.Instance.playerStats.characterData.UpdateExp(characterData.killPoint);
     //}
 
-    //private int CurrentDamage()
-    //{
-    //    float coreDamage = UnityEngine.Random.Range(attackData.minDamge, attackData.maxDamage);
+    private int CurrentDamage()
+    {
+        float coreDamage = UnityEngine.Random.Range(attackData.minDamge, attackData.maxDamage);
 
-    //    if (isCritical)
-    //    {
-    //        coreDamage *= attackData.criticalMultiplier;
-    //        Debug.Log("±©»÷£¡" + coreDamage);
-    //    }
-    //    return (int)coreDamage;
-    //}
+        if (isCritical)
+        {
+            coreDamage *= attackData.criticalMultiplier;
+            Debug.Log("æš´å‡»ï¼" + coreDamage);
+        }
+        return (int)coreDamage;
+    }
 
-    //#endregion
+    #endregion
 
     //#region Equip Weapon
     //public void ChangeWeapon(ItemData_SO weapon)
@@ -105,8 +105,8 @@ public class CharacterStats : MonoBehaviour
     //    if (weapon.weaponPrefab != null)
     //        Instantiate(weapon.weaponPrefab, weaponSlot);
 
-    //    //TODO:¸üÐÂÊôÐÔ
-    //    //TODO:ÇÐ»»¶¯»­
+    //    //TODO:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    //    //TODO:ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½
     //    attackData.ApplyWeaponData(weapon.weaponData);
     //    GetComponent<Animator>().runtimeAnimatorController = weapon.weaponAnimator;
     //    // InventoryManager.Instance.UpdateStatsText(MaxHealth, attackData.minDamge, attackData.maxDamage);
@@ -122,7 +122,7 @@ public class CharacterStats : MonoBehaviour
     //        }
     //    }
     //    attackData.ApplyWeaponData(baseAttackData);
-    //    //TODO:ÇÐ»»¶¯»­
+    //    //TODO:ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½
     //    GetComponent<Animator>().runtimeAnimatorController = baseAnimator;
     //}
     //#endregion
