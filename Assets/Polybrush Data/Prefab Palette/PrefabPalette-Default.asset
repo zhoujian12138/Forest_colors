@@ -159,7 +159,7 @@ MonoBehaviour:
     name: Mushroom_01
   - gameObject: {fileID: 5440707293445505367, guid: 494f6d43e170e9145bc7865d243ee00b, type: 3}
     settings:
-      m_Strength: 33.86135
+      m_Strength: 73.37816
       m_RotationRangeMin: {x: 0, y: 0, z: 0}
       m_RotationRangeMax: {x: 0, y: 0, z: 0}
       m_ScaleRangeMin: {x: 1, y: 1, z: 1}
@@ -175,7 +175,7 @@ MonoBehaviour:
     name: Mushroom_02
   - gameObject: {fileID: 7405846476849542632, guid: c6308cb7062fac34e8e50600086b12a1, type: 3}
     settings:
-      m_Strength: 67.138664
+      m_Strength: 17.222698
       m_RotationRangeMin: {x: 0, y: 0, z: 0}
       m_RotationRangeMax: {x: 0, y: 0, z: 0}
       m_ScaleRangeMin: {x: 1, y: 1, z: 1}
@@ -191,7 +191,7 @@ MonoBehaviour:
     name: Rock_01
   - gameObject: {fileID: 5202732821079448320, guid: cebfacc247a640945a2c30b442202fca, type: 3}
     settings:
-      m_Strength: 50
+      m_Strength: 22.962185
       m_RotationRangeMin: {x: 0, y: 0, z: 0}
       m_RotationRangeMax: {x: 0, y: 0, z: 0}
       m_ScaleRangeMin: {x: 1, y: 1, z: 1}
