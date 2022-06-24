@@ -54,15 +54,17 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
             enemyStates = EnemyStates.PATROL;
             GetNewWayPoint();
         }
-    }
-
-    void OnEnable()
-    {
         GameManager.Instance.AddObserver(this);
     }
 
+    //void OnEnable()
+    //{
+    //    GameManager.Instance.AddObserver(this);
+    //}
+
     void OnDisable()
     {
+        if (!GameManager.IsInitialized) { return; }
         GameManager.Instance.RemoveObserver(this);
     }
 
