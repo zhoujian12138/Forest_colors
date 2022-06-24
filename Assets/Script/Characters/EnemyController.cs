@@ -30,6 +30,7 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
     bool isWalk;
     bool isChase;
     bool isFollow;
+    bool playDead;
 
    
 
@@ -67,8 +68,12 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
 
     void Update()
     {
-        SwitchStates();
-        SwitchAnimation();
+        //老巴不要删除if
+        if (!playDead)
+        {
+            SwitchStates();
+            SwitchAnimation();
+        }
     }
 
     void SwitchAnimation()
@@ -144,9 +149,16 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         attackTarget = null;
         return false;
     }
+
+    //收到广播后的触发函数
     public void EndNotify()
     {
-        
+
+        anim.SetBool("win", true);
+        playDead = true;
+        isChase = false;
+        isWalk = false;
+        attackTarget = null;
     }
 
     void PatrolAction()
