@@ -133,15 +133,10 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         attackTarget = null;
         return false;
     }
-<<<<<<< Updated upstream
-=======
-
     public void EndNotify()
     {
         
     }
-
->>>>>>> Stashed changes
 
     void PatrolAction()
     {

@@ -10,20 +10,18 @@ public class PlayerController : MonoBehaviour
     private Animator anim;
     private CharacterStats characterStats;
 
-        private GameObject attackTarget;
-        private float lastAttackTime;
-    //    //public bool isDead;
+    private GameObject attackTarget;
+    private float lastAttackTime;
+    //public bool isDead;
 
-    //    //private float stopDistance;
+    private float stopDistance;
 
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
-        //anim = GetComponent<Animator>();
-        //characterStats = GetComponent<CharacterStats>();
-
-        //stopDistance = agent.stoppingDistance;
+        characterStats = GetComponent<CharacterStats>();
+        stopDistance = agent.stoppingDistance;
     }
 
     void OnEnable()
@@ -53,12 +51,11 @@ public class PlayerController : MonoBehaviour
     IEnumerator MoveToAttackTarget()
     {
         agent.isStopped = false;
-        //agent.stoppingdistance = characterStats.attackdata.attackRange;
-
+        agent.stoppingDistance = characterStats.attackData.attackRange;
         transform.LookAt(attackTarget.transform);
 
-        //if (attackTarget == null)
-            //yield break;
+        if (attackTarget == null)
+            yield break;
 
         while (Vector3.Distance(attackTarget.transform.position, transform.position) > characterStats.attackData.attackRange)
         {
@@ -70,8 +67,8 @@ public class PlayerController : MonoBehaviour
         //attack
         if (lastAttackTime < 0)
         {
-            anim.SetBool("critical", characterStats.isCritical);
-            anim.SetTrigger("attack");
+            anim.SetBool("Critical", characterStats.isCritical);
+            anim.SetTrigger("Attack");
             //重置冷却时间
             lastAttackTime = characterStats.attackData.coolDown;
         }
@@ -134,7 +131,7 @@ public class PlayerController : MonoBehaviour
         StopAllCoroutines();
         //if (isDead) return;
 
-        //agent.stoppingDistance = stopDistance;
+        agent.stoppingDistance = stopDistance;
         agent.isStopped = false;
         agent.destination = target;
     }
