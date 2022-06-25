@@ -4,7 +4,7 @@ using UnityEngine;
 public class CharacterStats : MonoBehaviour
 {
     //public event Action<int, int> UpdateHealthBarOnAttack;
-    //public CharacterData_SO templateData;
+    public CharacterData_SO templateData;
     public CharacterData_SO characterData;
     public  AttackData_SO attackData;
     //private AttackData_SO baseAttackData;
@@ -16,14 +16,14 @@ public class CharacterStats : MonoBehaviour
     [HideInInspector]
     public  bool isCritical;
 
-    //void Awake()
-    //{
-    //    if (templateData != null)
-    //        characterData = Instantiate(templateData);
+    void Awake()
+    {
+        if (templateData != null)
+            characterData = Instantiate(templateData);
 
-    //    baseAttackData = Instantiate(attackData);
-    //    baseAnimator = GetComponent<Animator>().runtimeAnimatorController;
-    //}
+        //baseAttackData = Instantiate(attackData);
+        //baseAnimator = GetComponent<Animator>().runtimeAnimatorController;
+    }
 
 
     #region Read from Data_SO

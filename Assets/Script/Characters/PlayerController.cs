@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
         MouseManager.Instance.OnMouseClicked += MoveToTarget;
         MouseManager.Instance.OnEnemyClicked += EventAttack;
         //SaveManager.Instance.LoadPlayerData();
-
+        GameManager.Instance.RigisterPlayer(characterStats);
     }
 
     private void EventAttack(GameObject target)
@@ -107,7 +107,7 @@ public class PlayerController : MonoBehaviour
     public void MoveToTarget(Vector3 target)
     {
         StopAllCoroutines();
-        //if (isDead) return;
+        if (isDead) return;
 
         agent.stoppingDistance = stopDistance;
         agent.isStopped = false;
