@@ -41,6 +41,8 @@ public class PlayerController : MonoBehaviour
 
     private void EventAttack(GameObject target)
     {
+        if (isDead) return;
+
         if(target != null)
         {
             attackTarget = target;
@@ -114,19 +116,7 @@ public class PlayerController : MonoBehaviour
         agent.destination = target;
     }
 
-    //  private void EventAttack(GameObject target)
-    //  {
-    //     if (isDead) return;
-
-    //     if (target != null)
-    //     {
-    //         attackTarget = target;
-    //         characterStats.isCritical = UnityEngine.Random.value < characterStats.attackData.criticalChance;
-    //         StartCoroutine(MoveToAttackTarget());
-    //     }
-    // }
-
-    ////////////////////////////////////////////////////////////////
+   
 
     //Animation Event
         void Hit()
