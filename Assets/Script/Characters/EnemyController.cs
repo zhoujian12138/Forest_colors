@@ -206,7 +206,7 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
     public void EndNotify()
     {
 
-        anim.SetBool("win", true);
+        anim.SetBool("Win", true);
         playerDead = true;
         isChase = false;
         isWalk = false;

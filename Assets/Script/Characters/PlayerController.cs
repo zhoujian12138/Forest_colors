@@ -87,8 +87,8 @@ public class PlayerController : MonoBehaviour
         {
             isDead = characterStats.CurrentHealth == 0;
 
-             //if (isDead)
-                //GameManager.Instance.NotifyObservers();
+             if (isDead)
+                GameManager.Instance.NotifyObservers();
 
     //        // KeyboardControl();
     //        // ActionAttack();
