@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour
         if(target != null)
         {
             attackTarget = target;
+            characterStats.isCritical = UnityEngine.Random.value < characterStats.attackData.criticalChance;
             StartCoroutine(MoveToAttackTarget());
         }
     }
@@ -73,30 +74,7 @@ public class PlayerController : MonoBehaviour
             lastAttackTime = characterStats.attackData.coolDown;
         }
     }
-    /*IEnumerator MoveToAttackTarget()
-    {
-        agent.isStopped = false;
-
-        transform.LookAt(attackTarget.transform);
-
-        //TODO:�޸Ĺ�����Χ����
-        while(Vector3.Distance(attackTarget.transform.position,transform.position)>characterStats.attackData.attackRange)
-        {
-            agent.destination = attackTarget.transform.position;
-            yield return null;
-        }
-        
-        agent.isStopped = true;
-        //Attack
-
-        if(lastAttackTime < 0)
-        {
-            anim.SetBool("critical", characterstats.iscritical);
-            anim.SetTrigger("Attack");
-            //重置冷却时间
-            lastAttackTime = characterStats.attackData.coolDown;
-        }
-    }*/
+ 
 
     void OnDisable()
     {
@@ -109,8 +87,8 @@ public class PlayerController : MonoBehaviour
         {
             isDead = characterStats.CurrentHealth == 0;
 
-             if (isDead)
-                GameManager.Instance.NotifyObservers();
+             //if (isDead)
+                //GameManager.Instance.NotifyObservers();
 
     //        // KeyboardControl();
     //        // ActionAttack();
@@ -123,7 +101,7 @@ public class PlayerController : MonoBehaviour
         private void SwitchAnimation()
         {
            anim.SetFloat("Speed", agent.velocity.sqrMagnitude);
-           //anim.SetBool("Death", isDead);
+           anim.SetBool("Death", isDead);
         }
 
     public void MoveToTarget(Vector3 target)
@@ -150,7 +128,7 @@ public class PlayerController : MonoBehaviour
 
     ////////////////////////////////////////////////////////////////
 
-    //    //Animation Event
+    //Animation Event
         void Hit()
         {
             var targetStats = attackTarget.GetComponent<CharacterStats>();
