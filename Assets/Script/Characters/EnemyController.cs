@@ -31,6 +31,9 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
     bool isChase;
     bool isFollow;
     bool playDead;
+    bool isDead;
+    //quaternion(角度）
+    private Quaternion guardRotation;
 
    
 
@@ -40,6 +43,7 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         anim = GetComponent<Animator>();
         speed = agent.speed;
         guardPos = transform.position;
+        guardRotation = transform.rotation;
         remainLookAtTime = lookAtTime;
     }
 
@@ -70,12 +74,12 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
 
     void Update()
     {
-        //�ϰͲ�Ҫɾ��if
-        if (!playDead)
-        {
+
+        if (CharacterStats.CurrentHealth == 0)
+            isDead = true;
             SwitchStates();
             SwitchAnimation();
-        }
+
     }
 
     void SwitchAnimation()
@@ -83,9 +87,13 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         anim.SetBool("Walk", isWalk);
         anim.SetBool("Chase", isChase);
         anim.SetBool("Follow", isFollow);
+        //anim.SetBool("Critical",characterStats.isCritical);
+        anim.SetBool("Death",isDead);
     }
     void SwitchStates()
     {
+        if(isDead)
+        enemyStates = EnemyStates.DEAD;
         //�������player �л���CHASE
         if(FoundPlayer())
         {
@@ -99,10 +107,16 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
             if(transform.position != guardPos)
             {
                 isWalk = true;
+                agent.isStopped  = false;
+                agent.destination = guardPos;
 
+                if(Vector3.SqrMagnitude(guardPos-transform.position)<=agent.stoppingDistance)
+                {
+                isWalk = false;
+                transform.rotation = Quaternion.Lerp(transform.rotation,guardRotation,0.01f);
+                }
             }
-            
-                break;
+            break;
             case EnemyStates.PATROL:
                 PatrolAction();
                 break;
@@ -110,6 +124,8 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
                 ChaseAction();
                 break;
             case EnemyStates.DEAD:
+                agent.enabled = false;
+                Destroy(gameObject,2f);
                 break;
         }
     }
