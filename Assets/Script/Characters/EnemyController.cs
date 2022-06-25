@@ -11,22 +11,24 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
     private EnemyStates enemyStates;
     private NavMeshAgent agent;
     private Animator anim;
+    private CharacterStats characterStats;
 
     [Header("Basic Settings")]
     public float sightRadius;
     public bool isGuard;
-    private float speed;//记录原来的速度
+    private float speed;
     private GameObject attackTarget;
     public float lookAtTime;
     private float remainLookAtTime;
+    private float lastAttackTime;
 
-    //巡逻
+  
     [Header("Patrol State")]
     public float patrolRange;
     private Vector3 wayPoint;
     private Vector3 guardPos;
 
-    //bool配合动画
+   
     bool isWalk;
     bool isChase;
     bool isFollow;
@@ -38,6 +40,8 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
     {
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
+        characterStats = GetComponent<CharacterStats>();
+
         speed = agent.speed;
         guardPos = transform.position;
         remainLookAtTime = lookAtTime;
@@ -70,12 +74,14 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
 
     void Update()
     {
-        //老巴不要删除if
         if (!playDead)
         {
             SwitchStates();
             SwitchAnimation();
         }
+        SwitchStates();
+        SwitchAnimation();
+        lastAttackTime -= Time.deltaTime;
     }
 
     void SwitchAnimation()
@@ -83,10 +89,11 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         anim.SetBool("Walk", isWalk);
         anim.SetBool("Chase", isChase);
         anim.SetBool("Follow", isFollow);
+        anim.SetBool("Critical", characterStats.isCritical);
     }
     void SwitchStates()
     {
-        //如果发现player 切换到CHASE
+        
         if(FoundPlayer())
         {
             enemyStates = EnemyStates.CHASE;
@@ -95,6 +102,12 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         switch(enemyStates)
         {
             case EnemyStates.GUARD:
+            isChase = false;
+            if(transform.position != guardPos)
+            {
+                isWalk = true;
+
+            }
                 break;
             case EnemyStates.PATROL:
                 PatrolAction();
@@ -112,10 +125,8 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         isWalk = false;
         isChase = true;
         agent.speed = speed;
-        //TODO:追player，在攻击范围内则攻击，配合动画
-        if(!FoundPlayer())
+        if(!FoundPlayer()) 
         {
-            //TODO:拉脱回到上一个状态
             isFollow = false;
             if (remainLookAtTime > 0)
             {
@@ -132,7 +143,41 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         else
         {
             isFollow = true;
+            agent.isStopped = false;
             agent.destination = attackTarget.transform.position;
+        }
+        //TODO:在攻击范围内则攻击
+        if(TargetInAttackRange() || TargetInSkillRange())
+        {
+            isFollow = false;
+            agent.isStopped = true;
+
+            if(lastAttackTime < 0)
+            {
+                lastAttackTime = characterStats.attackData.coolDown;
+
+                //暴击判断
+                characterStats.isCritical = UnityEngine.Random.value < characterStats.attackData.criticalChance;
+                //执行攻击
+                Attack();
+
+            }
+        }
+
+    }
+
+    void Attack()
+    {
+        transform.LookAt(attackTarget.transform);
+        if(TargetInAttackRange())
+        {
+            //近身攻击动画
+            anim.SetTrigger("Attack");
+        }
+        if(TargetInSkillRange())
+        {
+            //技能攻击动画
+            anim.SetTrigger("Skill");
         }
     }
 
@@ -152,7 +197,7 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         return false;
     }
 
-    //收到广播后的触发函数
+   
     public void EndNotify()
     {
 
@@ -168,7 +213,6 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         isChase = false;
         agent.speed = speed * 0.5f;
 
-        //判断是否到了随机巡逻点
         if(Vector3.Distance(wayPoint,transform.position) <= agent.stoppingDistance)
         {
             isWalk = false;
@@ -184,6 +228,21 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         }
     }
 
+    bool TargetInAttackRange()
+    {
+        if (attackTarget != null)
+            return Vector3.Distance(attackTarget.transform.position, transform.position) <= characterStats.attackData.attackRange;
+        else
+            return false;
+    }
+
+    bool TargetInSkillRange()
+    {
+        if (attackTarget != null)
+            return Vector3.Distance(attackTarget.transform.position, transform.position) <= characterStats.attackData.skillRange;
+        else
+            return false;
+    }
     void GetNewWayPoint()
     {
         remainLookAtTime = lookAtTime;
@@ -192,11 +251,9 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         float randomZ = UnityEngine.Random.Range(-patrolRange, patrolRange);
 
         Vector3 randomPoint = new Vector3(guardPos.x + randomX,transform.position.y, guardPos.z + randomZ);
-        //FIXME：可能出现的问题,以下是判断随机点是不是能走过去的点
         NavMeshHit hit;
         wayPoint = NavMesh.SamplePosition(randomPoint,out hit,patrolRange,1)? hit.position:transform.position;
     }
-    //选中物体时才会画出它的训练范围
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue;

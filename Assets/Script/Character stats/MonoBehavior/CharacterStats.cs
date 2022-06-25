@@ -13,7 +13,7 @@ public class CharacterStats : MonoBehaviour
     //[Header("Weapon")]
     //public Transform weaponSlot;
 
-    //[HideInInspector]
+    [HideInInspector]
     public  bool isCritical;
 
     //void Awake()
