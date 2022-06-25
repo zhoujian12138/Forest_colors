@@ -11,22 +11,24 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
     private EnemyStates enemyStates;
     private NavMeshAgent agent;
     private Animator anim;
+    private CharacterStats characterStats;
 
     [Header("Basic Settings")]
     public float sightRadius;
     public bool isGuard;
-    private float speed;//ï¿½ï¿½Â¼Ô­ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½
+    private float speed;
     private GameObject attackTarget;
     public float lookAtTime;
     private float remainLookAtTime;
+    private float lastAttackTime;
 
-    //Ñ²ï¿½ï¿½
+  
     [Header("Patrol State")]
     public float patrolRange;
     private Vector3 wayPoint;
     private Vector3 guardPos;
 
-    //boolï¿½ï¿½Ï¶ï¿½ï¿½ï¿½
+   
     bool isWalk;
     bool isChase;
     bool isFollow;
@@ -38,6 +40,8 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
     {
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
+        characterStats = GetComponent<CharacterStats>();
+
         speed = agent.speed;
         guardPos = transform.position;
         remainLookAtTime = lookAtTime;
@@ -70,12 +74,14 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
 
     void Update()
     {
-        //ï¿½Ï°Í²ï¿½ÒªÉ¾ï¿½ï¿½if
         if (!playDead)
         {
             SwitchStates();
             SwitchAnimation();
         }
+        SwitchStates();
+        SwitchAnimation();
+        lastAttackTime -= Time.deltaTime;
     }
 
     void SwitchAnimation()
@@ -83,10 +89,11 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         anim.SetBool("Walk", isWalk);
         anim.SetBool("Chase", isChase);
         anim.SetBool("Follow", isFollow);
+        anim.SetBool("Critical", characterStats.isCritical);
     }
     void SwitchStates()
     {
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½player ï¿½Ð»ï¿½ï¿½ï¿½CHASE
+        
         if(FoundPlayer())
         {
             enemyStates = EnemyStates.CHASE;
@@ -101,7 +108,6 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
                 isWalk = true;
 
             }
-            
                 break;
             case EnemyStates.PATROL:
                 PatrolAction();
@@ -119,10 +125,8 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         isWalk = false;
         isChase = true;
         agent.speed = speed;
-        //TODO:×·playerï¿½ï¿½ï¿½Ú¹ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½ï¿½ò¹¥»ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½ï¿½ï¿½
-        if(!FoundPlayer())
+        if(!FoundPlayer()) 
         {
-            //TODO:ï¿½ï¿½ï¿½Ñ»Øµï¿½ï¿½ï¿½Ò»ï¿½ï¿½×´Ì¬
             isFollow = false;
             if (remainLookAtTime > 0)
             {
@@ -139,7 +143,41 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         else
         {
             isFollow = true;
+            agent.isStopped = false;
             agent.destination = attackTarget.transform.position;
+        }
+        //TODO:ÔÚ¹¥»÷·¶Î§ÄÚÔò¹¥»÷
+        if(TargetInAttackRange() || TargetInSkillRange())
+        {
+            isFollow = false;
+            agent.isStopped = true;
+
+            if(lastAttackTime < 0)
+            {
+                lastAttackTime = characterStats.attackData.coolDown;
+
+                //±©»÷ÅÐ¶Ï
+                characterStats.isCritical = UnityEngine.Random.value < characterStats.attackData.criticalChance;
+                //Ö´ÐÐ¹¥»÷
+                Attack();
+
+            }
+        }
+
+    }
+
+    void Attack()
+    {
+        transform.LookAt(attackTarget.transform);
+        if(TargetInAttackRange())
+        {
+            //½üÉí¹¥»÷¶¯»­
+            anim.SetTrigger("Attack");
+        }
+        if(TargetInSkillRange())
+        {
+            //¼¼ÄÜ¹¥»÷¶¯»­
+            anim.SetTrigger("Skill");
         }
     }
 
@@ -159,7 +197,7 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         return false;
     }
 
-    //ï¿½Õµï¿½ï¿½ã²¥ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+   
     public void EndNotify()
     {
 
@@ -175,7 +213,6 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         isChase = false;
         agent.speed = speed * 0.5f;
 
-        //ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ²ï¿½ßµï¿½
         if(Vector3.Distance(wayPoint,transform.position) <= agent.stoppingDistance)
         {
             isWalk = false;
@@ -191,6 +228,21 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         }
     }
 
+    bool TargetInAttackRange()
+    {
+        if (attackTarget != null)
+            return Vector3.Distance(attackTarget.transform.position, transform.position) <= characterStats.attackData.attackRange;
+        else
+            return false;
+    }
+
+    bool TargetInSkillRange()
+    {
+        if (attackTarget != null)
+            return Vector3.Distance(attackTarget.transform.position, transform.position) <= characterStats.attackData.skillRange;
+        else
+            return false;
+    }
     void GetNewWayPoint()
     {
         remainLookAtTime = lookAtTime;
@@ -199,11 +251,9 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         float randomZ = UnityEngine.Random.Range(-patrolRange, patrolRange);
 
         Vector3 randomPoint = new Vector3(guardPos.x + randomX,transform.position.y, guardPos.z + randomZ);
-        //FIXMEï¿½ï¿½ï¿½ï¿½ï¿½Ü³ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¹ï¿½È¥ï¿½Äµï¿½
         NavMeshHit hit;
         wayPoint = NavMesh.SamplePosition(randomPoint,out hit,patrolRange,1)? hit.position:transform.position;
     }
-    //Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½Å»á»­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñµï¿½ï¿½ï¿½ï¿½Î§
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue;
