@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
         MouseManager.Instance.OnMouseClicked += MoveToTarget;
         MouseManager.Instance.OnEnemyClicked += EventAttack;
         //SaveManager.Instance.LoadPlayerData();
-
+        GameManager.Instance.RigisterPlayer(characterStats);
     }
 
     private void EventAttack(GameObject target)
