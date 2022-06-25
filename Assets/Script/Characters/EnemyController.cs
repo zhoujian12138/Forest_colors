@@ -11,29 +11,31 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
     private EnemyStates enemyStates;
     private NavMeshAgent agent;
     private Animator anim;
+    private CharacterStats characterStats;
 
     [Header("Basic Settings")]
     public float sightRadius;
     public bool isGuard;
-    private float speed;//��¼ԭ�����ٶ�
+    private float speed;
     private GameObject attackTarget;
     public float lookAtTime;
     private float remainLookAtTime;
+    private float lastAttackTime;
 
-    //Ѳ��
+  
     [Header("Patrol State")]
     public float patrolRange;
     private Vector3 wayPoint;
     private Vector3 guardPos;
+    private Quaternion guardRotation;
 
-    //bool��϶���
+   
     bool isWalk;
     bool isChase;
     bool isFollow;
     bool playDead;
-    bool isDead;
-    //quaternion(角度）
-    private Quaternion guardRotation;
+
+
 
    
 
@@ -41,6 +43,8 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
     {
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
+        characterStats = GetComponent<CharacterStats>();
+
         speed = agent.speed;
         guardPos = transform.position;
         guardRotation = transform.rotation;
@@ -74,12 +78,14 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
 
     void Update()
     {
-
-        if (CharacterStats.CurrentHealth == 0)
-            isDead = true;
+        if (!playDead)
+        {
             SwitchStates();
             SwitchAnimation();
-
+        }
+        SwitchStates();
+        SwitchAnimation();
+        lastAttackTime -= Time.deltaTime;
     }
 
     void SwitchAnimation()
@@ -87,14 +93,11 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         anim.SetBool("Walk", isWalk);
         anim.SetBool("Chase", isChase);
         anim.SetBool("Follow", isFollow);
-        //anim.SetBool("Critical",characterStats.isCritical);
-        anim.SetBool("Death",isDead);
+        anim.SetBool("Critical", characterStats.isCritical);
     }
     void SwitchStates()
     {
-        if(isDead)
-        enemyStates = EnemyStates.DEAD;
-        //�������player �л���CHASE
+        
         if(FoundPlayer())
         {
             enemyStates = EnemyStates.CHASE;
@@ -107,16 +110,15 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
             if(transform.position != guardPos)
             {
                 isWalk = true;
-                agent.isStopped  = false;
+                agent.isStopped = false;
                 agent.destination = guardPos;
-
-                if(Vector3.SqrMagnitude(guardPos-transform.position)<=agent.stoppingDistance)
+                if(Vector3.SqrMagnitude(guardPos-transform.position) <= agent.stoppingDistance)
                 {
-                isWalk = false;
                 transform.rotation = Quaternion.Lerp(transform.rotation,guardRotation,0.01f);
+                isWalk = false;
                 }
             }
-            break;
+                break;
             case EnemyStates.PATROL:
                 PatrolAction();
                 break;
@@ -124,8 +126,6 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
                 ChaseAction();
                 break;
             case EnemyStates.DEAD:
-                agent.enabled = false;
-                Destroy(gameObject,2f);
                 break;
         }
     }
@@ -135,10 +135,8 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         isWalk = false;
         isChase = true;
         agent.speed = speed;
-        //TODO:׷player���ڹ�����Χ���򹥻�����϶���
-        if(!FoundPlayer())
+        if(!FoundPlayer()) 
         {
-            //TODO:���ѻص���һ��״̬
             isFollow = false;
             if (remainLookAtTime > 0)
             {
@@ -155,7 +153,41 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         else
         {
             isFollow = true;
+            agent.isStopped = false;
             agent.destination = attackTarget.transform.position;
+        }
+        //TODO:�ڹ�����Χ���򹥻�
+        if(TargetInAttackRange() || TargetInSkillRange())
+        {
+            isFollow = false;
+            agent.isStopped = true;
+
+            if(lastAttackTime < 0)
+            {
+                lastAttackTime = characterStats.attackData.coolDown;
+
+                //�����ж�
+                characterStats.isCritical = UnityEngine.Random.value < characterStats.attackData.criticalChance;
+                //ִ�й���
+                Attack();
+
+            }
+        }
+
+    }
+
+    void Attack()
+    {
+        transform.LookAt(attackTarget.transform);
+        if(TargetInAttackRange())
+        {
+            //����������
+            anim.SetTrigger("Attack");
+        }
+        if(TargetInSkillRange())
+        {
+            //���ܹ�������
+            anim.SetTrigger("Skill");
         }
     }
 
@@ -175,7 +207,7 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         return false;
     }
 
-    //�յ��㲥��Ĵ�������
+   
     public void EndNotify()
     {
 
@@ -191,7 +223,6 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         isChase = false;
         agent.speed = speed * 0.5f;
 
-        //�ж��Ƿ������Ѳ�ߵ�
         if(Vector3.Distance(wayPoint,transform.position) <= agent.stoppingDistance)
         {
             isWalk = false;
@@ -207,6 +238,21 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         }
     }
 
+    bool TargetInAttackRange()
+    {
+        if (attackTarget != null)
+            return Vector3.Distance(attackTarget.transform.position, transform.position) <= characterStats.attackData.attackRange;
+        else
+            return false;
+    }
+
+    bool TargetInSkillRange()
+    {
+        if (attackTarget != null)
+            return Vector3.Distance(attackTarget.transform.position, transform.position) <= characterStats.attackData.skillRange;
+        else
+            return false;
+    }
     void GetNewWayPoint()
     {
         remainLookAtTime = lookAtTime;
@@ -215,11 +261,9 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         float randomZ = UnityEngine.Random.Range(-patrolRange, patrolRange);
 
         Vector3 randomPoint = new Vector3(guardPos.x + randomX,transform.position.y, guardPos.z + randomZ);
-        //FIXME�����ܳ��ֵ�����,�������ж�������ǲ������߹�ȥ�ĵ�
         NavMeshHit hit;
         wayPoint = NavMesh.SamplePosition(randomPoint,out hit,patrolRange,1)? hit.position:transform.position;
     }
-    //ѡ������ʱ�Żử������ѵ����Χ
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue;
