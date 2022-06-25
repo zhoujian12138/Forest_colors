@@ -23,24 +23,21 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
     public float lookAtTime;
     private float remainLookAtTime;
     private float lastAttackTime;
+    private Quaternion guardRotation;
 
-  
+
     [Header("Patrol State")]
     public float patrolRange;
     private Vector3 wayPoint;
     private Vector3 guardPos;
-    private Quaternion guardRotation;
+ 
 
    
     bool isWalk;
     bool isChase;
     bool isFollow;
-    bool playDead;
+    bool playerDead;
     bool isDead;
-
-
-
-   
 
     void Awake()
     {
@@ -66,8 +63,8 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
             enemyStates = EnemyStates.PATROL;
             GetNewWayPoint();
         }
+        //³¡¾°ÇÐ»»ºóÐÞ¸Äµô
         GameManager.Instance.AddObserver(this);
-        Debug.Log(characterStats.attackData.coolDown);
     }
 
     //void OnEnable()
@@ -85,14 +82,13 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
     {
         if(characterStats.CurrentHealth == 0)
             isDead = true;
-        if (!playDead)
+        if (!playerDead)
         {
             SwitchStates();
             SwitchAnimation();
+            lastAttackTime -= Time.deltaTime;
         }
-        SwitchStates();
-        SwitchAnimation();
-        lastAttackTime -= Time.deltaTime;
+
     }
 
     void SwitchAnimation()
@@ -211,7 +207,7 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
     {
 
         anim.SetBool("win", true);
-        playDead = true;
+        playerDead = true;
         isChase = false;
         isWalk = false;
         attackTarget = null;
@@ -237,12 +233,12 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         }
     }
 
-    void DeadAction()
-    {
-    coll.enabled = false;
-   agent.enabled = false;
-   Destroy(gameObject,2f);
-    }
+        void DeadAction()
+        {
+        coll.enabled = false;
+        agent.enabled = false;
+        Destroy(gameObject,2f);
+        }
     void GuardAction()
     {
         isChase = false;
@@ -253,9 +249,10 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
              agent.destination = guardPos;
              if(Vector3.SqrMagnitude(guardPos-transform.position) <= agent.stoppingDistance)
              {
-                 transform.rotation = Quaternion.Lerp(transform.rotation,guardRotation,0.01f);
+                 
                  isWalk = false;
-               }
+                transform.rotation = Quaternion.Lerp(transform.rotation, guardRotation, 0.01f);
+            }
         }
     }
 
