@@ -87,8 +87,8 @@ public class PlayerController : MonoBehaviour
         {
             isDead = characterStats.CurrentHealth == 0;
 
-             if (isDead)
-                GameManager.Instance.NotifyObservers();
+             //if (isDead)
+                //GameManager.Instance.NotifyObservers();
 
     //        // KeyboardControl();
     //        // ActionAttack();
@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviour
         private void SwitchAnimation()
         {
            anim.SetFloat("Speed", agent.velocity.sqrMagnitude);
-           //anim.SetBool("Death", isDead);
+           anim.SetBool("Death", isDead);
         }
 
     public void MoveToTarget(Vector3 target)
