@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
 {
-    //public event Action<int, int> UpdateHealthBarOnAttack;
+    public event Action<int, int> UpdateHealthBarOnAttack;
     public CharacterData_SO templateData;
     public CharacterData_SO characterData;
     public  AttackData_SO attackData;
@@ -63,21 +63,21 @@ public class CharacterStats : MonoBehaviour
         {
             defener.GetComponent<Animator>().SetTrigger("Hit");
         }
-    //    //Update UI
-    //    UpdateHealthBarOnAttack?.Invoke(CurrentHealth, MaxHealth);
+        //Update UI
+        UpdateHealthBarOnAttack?.Invoke(CurrentHealth, MaxHealth);
     //    //经验update
     //    if (CurrentHealth <= 0)
     //        attacker.characterData.UpdateExp(characterData.killPoint);
     }
 
-    //public void TakeDamage(int damage, CharacterStats defener)
-    //{
-    //    int currentDamge = Mathf.Max(damage - defener.CurrentDefence, 0);
-    //    CurrentHealth = Mathf.Max(CurrentHealth - currentDamge, 0);
-    //    UpdateHealthBarOnAttack?.Invoke(CurrentHealth, MaxHealth);
+    public void TakeDamage(int damage, CharacterStats defener)
+    {
+        int currentDamge = Mathf.Max(damage - defener.CurrentDefence, 0);
+        CurrentHealth = Mathf.Max(CurrentHealth - currentDamge, 0);
+        UpdateHealthBarOnAttack?.Invoke(CurrentHealth, MaxHealth);
     //    if (CurrentHealth <= 0)
     //        GameManager.Instance.playerStats.characterData.UpdateExp(characterData.killPoint);
-    //}
+    }
 
     private int CurrentDamage()
     {
