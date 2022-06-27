@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Rock : MonoBehaviour
 {
+    public enum RockStates {HitPlayer }
    private Rigidbody rb;
 
     [Header("Basic Settings")]
