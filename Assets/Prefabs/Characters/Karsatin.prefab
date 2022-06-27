@@ -265,7 +265,7 @@ GameObject:
   - component: {fileID: 6488651330073947496}
   - component: {fileID: 6488651330073947499}
   m_Layer: 7
-  m_Name: FreeLichPBR
+  m_Name: Karsatin
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
