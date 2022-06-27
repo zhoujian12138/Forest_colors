@@ -360,6 +360,7 @@ GameObject:
   - component: {fileID: 4525898671205681438}
   - component: {fileID: 4525898671205681437}
   - component: {fileID: 4525898672278842982}
+  - component: {fileID: 480465064602186189}
   m_Layer: 0
   m_Name: Golem
   m_TagString: Enemy
@@ -416,6 +417,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.342116, y: 4.2398777, z: 2.4371052}
   m_Center: {x: -0.041381598, y: 1.6199386, z: 0.28790665}
+--- !u!114 &480465064602186189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4525898671205681436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a101bd626a852640831eb7f7a3f8031, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthUIPrefab: {fileID: 2051608352684768358, guid: 23d13deb8f4cdb548887d22be461eed6, type: 3}
+  barPoint: {fileID: 0}
+  alwaysVisble: 0
+  visibleTime: 0
 --- !u!1 &4525898671213394613
 GameObject:
   m_ObjectHideFlags: 0
@@ -798,6 +815,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6380727962433102509}
+  - component: {fileID: 2651865713460248382}
   m_Layer: 0
   m_Name: HealthBar Point
   m_TagString: Untagged
@@ -819,3 +837,19 @@ Transform:
   m_Father: {fileID: 4525898671205681438}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2651865713460248382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7936090156532797564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a101bd626a852640831eb7f7a3f8031, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthUIPrefab: {fileID: 2051608352684768358, guid: 23d13deb8f4cdb548887d22be461eed6, type: 3}
+  barPoint: {fileID: 6380727962433102509}
+  alwaysVisble: 0
+  visibleTime: 0

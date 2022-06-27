@@ -9,6 +9,7 @@ public class HealthBarUI : MonoBehaviour
     public Transform barPoint;
     public bool alwaysVisble;
     public float visibleTime;
+    private float timeLeft;
     Image healthSlider;
     Transform UIbar;
     Transform cam;
@@ -40,6 +41,26 @@ public class HealthBarUI : MonoBehaviour
     private void UpdateHealthBar (int currentHealth, int maxHealth)
     {
         if(currentHealth <= 0)
-        Destroy(UIbar.gameObject);
+            Destroy(UIbar.gameObject);
+
+        UIbar.gameObject.SetActive(true);
+        timeLeft = visibleTime;
+        
+        float sliderPercent = (float)currentHealth / maxHealth;
+        healthSlider.fillAmount = sliderPercent;
+    }
+
+    void LateUpdate()
+    {
+        if(UIbar != null)
+        {
+            UIbar.position = barPoint.position;
+            UIbar.forward = -cam.forward;
+
+            if(timeLeft <= 0 && !alwaysVisble)
+                UIbar.gameObject.SetActive(false);
+            else
+                timeLeft -= Time.deltaTime;
+        }
     }
 }
