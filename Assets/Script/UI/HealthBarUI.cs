@@ -17,9 +17,9 @@ public class HealthBarUI : MonoBehaviour
 
     void Awake()
     {
-    currentStats = GetComponent<CharacterStats>();
+        currentStats = GetComponent<CharacterStats>();
 
-    currentStats.UpdateHealthBarOnAttack += UpdateHealthBar;
+        currentStats.UpdateHealthBarOnAttack += UpdateHealthBar;
     }
 
 
@@ -40,14 +40,17 @@ public class HealthBarUI : MonoBehaviour
 
     private void UpdateHealthBar (int currentHealth, int maxHealth)
     {
-        if(currentHealth <= 0)
-            Destroy(UIbar.gameObject);
+        if (currentHealth!=null && maxHealth!=null)
+        {
+            if(currentHealth <= 0)
+                Destroy(UIbar.gameObject);
 
-        UIbar.gameObject.SetActive(true);
-        timeLeft = visibleTime;
-        
-        float sliderPercent = (float)currentHealth / maxHealth;
-        healthSlider.fillAmount = sliderPercent;
+            UIbar.gameObject.SetActive(true);
+            timeLeft = visibleTime;
+
+            float sliderPercent = (float)currentHealth / maxHealth;
+            healthSlider.fillAmount = sliderPercent;
+        }
     }
 
     void LateUpdate()
