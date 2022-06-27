@@ -19,7 +19,7 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
     public float sightRadius;
     public bool isGuard;
     private float speed;
-    private GameObject attackTarget;
+    protected GameObject attackTarget;
     public float lookAtTime;
     private float remainLookAtTime;
     private float lastAttackTime;
@@ -236,7 +236,8 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         void DeadAction()
         {
         coll.enabled = false;
-        agent.enabled = false;
+        //agent.enabled = false;
+        agent.radius = 0;
         Destroy(gameObject,2f);
         }
     void GuardAction()
