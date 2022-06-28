@@ -17,16 +17,8 @@ MonoBehaviour:
   baseDefence: 2
   currentDefence: 2
   killPoint: 0
-<<<<<<< HEAD
-  currentLevel: 1
-  maxLevel: 30
-  baseExp: 30
-  currentExp: 0
-  levelBuff: 0.1
-=======
   currentLevel: 0
   maxLevel: 0
   baseExp: 0
   currentExp: 0
   levelBuff: 0
->>>>>>> 9be9863d28126f638878ad6203472ffbded9bc77
