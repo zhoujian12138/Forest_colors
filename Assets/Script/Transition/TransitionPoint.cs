@@ -13,7 +13,7 @@ public class TransitionPoint : MonoBehaviour
     public TransitionDestination.DestinationTag destinationTag;
     
 
-    //private bool canTrans;
+    private bool canTrans;
 
 
     void Update()
