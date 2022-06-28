@@ -13,7 +13,8 @@ public class TransitionPoint : MonoBehaviour
     public TransitionDestination.DestinationTag destinationTag;
     
 
-    private bool canTrans;
+    //private bool canTrans;
+
 
     void Update()
     {
@@ -31,11 +32,12 @@ public class TransitionPoint : MonoBehaviour
         }
     }
 
-    void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            canTrans = false;
-        }
-    }
+
+  //  void OnTriggerExit(Collider other)
+  //  {
+  //      if (other.CompareTag("Player"))
+   //     {
+   //         canTrans = false;
+   //     }
+  //  }
 }

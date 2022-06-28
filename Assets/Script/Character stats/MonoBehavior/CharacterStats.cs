@@ -72,14 +72,14 @@ public class CharacterStats : MonoBehaviour
 
     }
 
-    //public void TakeDamage(int damage, CharacterStats defener)
-    //{
-    //    int currentDamge = Mathf.Max(damage - defener.CurrentDefence, 0);
-    //    CurrentHealth = Mathf.Max(CurrentHealth - currentDamge, 0);
+    public void TakeDamage(int damage, CharacterStats defener)
+    {
+        int currentDamge = Mathf.Max(damage - defener.CurrentDefence, 0);
+        CurrentHealth = Mathf.Max(CurrentHealth - currentDamge, 0);
     //    UpdateHealthBarOnAttack?.Invoke(CurrentHealth, MaxHealth);
     //    if (CurrentHealth <= 0)
     //        GameManager.Instance.playerStats.characterData.UpdateExp(characterData.killPoint);
-    //}
+    }
 
     private int CurrentDamage()
     {
