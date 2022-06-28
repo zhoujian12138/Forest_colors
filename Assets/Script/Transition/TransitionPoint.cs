@@ -18,7 +18,7 @@ public class TransitionPoint : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && canTrans)
+        if (Input.GetKeyDown(KeyCode.E) && canTrans && !PlayerController.isDead)
         {
             SceneController.Instance.TransitionToDestination(this);
         }
@@ -33,11 +33,11 @@ public class TransitionPoint : MonoBehaviour
     }
 
 
-  //  void OnTriggerExit(Collider other)
-  //  {
-  //      if (other.CompareTag("Player"))
-   //     {
-   //         canTrans = false;
-   //     }
-  //  }
+    void OnTriggerExit(Collider other)
+    {
+       if (other.CompareTag("Player"))
+        {
+           canTrans = false;
+        }
+    }
 }
