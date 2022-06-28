@@ -19,7 +19,7 @@ public class HealthBarUI : MonoBehaviour
     {
         currentStats = GetComponent<CharacterStats>();
 
-       // currentStats.UpdateHealthBarOnAttack += UpdateHealthBar;
+        currentStats.UpdateHealthBarOnAttack += UpdateHealthBar;
 
         
     }
