@@ -26,17 +26,24 @@ public class PlayerController : MonoBehaviour
 
     void OnEnable()
     {
-        //MouseManager.Instance.OnMouseClicked += MoveToTarget;
-        //MouseManager.Instance.OnEnemyClicked += EventAttack;
+        MouseManager.Instance.OnMouseClicked += MoveToTarget;
+        MouseManager.Instance.OnEnemyClicked += EventAttack;
         //GameManager.Instance.RigisterPlayer(characterStats);
     }
 
     void Start()
     {
-        MouseManager.Instance.OnMouseClicked += MoveToTarget;
-        MouseManager.Instance.OnEnemyClicked += EventAttack;
+        //MouseManager.Instance.OnMouseClicked += MoveToTarget;
+        //MouseManager.Instance.OnEnemyClicked += EventAttack;
         //SaveManager.Instance.LoadPlayerData();
         GameManager.Instance.RigisterPlayer(characterStats);
+    }
+
+    void OnDisable()
+    {
+        if (!MouseManager.IsInitialized) return;
+        MouseManager.Instance.OnMouseClicked -= MoveToTarget;
+        MouseManager.Instance.OnEnemyClicked -= EventAttack;
     }
 
     private void EventAttack(GameObject target)
@@ -78,12 +85,7 @@ public class PlayerController : MonoBehaviour
     }
  
 
-    void OnDisable()
-    {
-        //if (!MouseManager.IsInitialized) return;
-        //MouseManager.Instance.OnMouseClicked -= MoveToTarget;
-        //MouseManager.Instance.OnEnemyClicked -= EventAttack;
-    }
+  
 
         void Update()
         {

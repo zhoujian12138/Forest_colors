@@ -16,6 +16,12 @@ public class MouseManager : Singleton<MouseManager>
         DontDestroyOnLoad(this);
     }
 
+    protected override void Awake()
+    {
+        base.Awake();
+        DontDestroyOnLoad(this);
+    }
+
     void Update()
     {
         SetCursorTexture();
