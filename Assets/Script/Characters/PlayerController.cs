@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
 
     private GameObject attackTarget;
     private float lastAttackTime;
-    private bool isDead;
+    public static bool isDead;
 
     private float stopDistance;
 

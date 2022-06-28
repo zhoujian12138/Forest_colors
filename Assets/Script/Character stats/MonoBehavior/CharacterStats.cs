@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
 {
-    //public event Action<int, int> UpdateHealthBarOnAttack;
+    public event Action<int, int> UpdateHealthBarOnAttack;
     public CharacterData_SO templateData;
     public CharacterData_SO characterData;
     public  AttackData_SO attackData;
@@ -63,19 +63,15 @@ public class CharacterStats : MonoBehaviour
         {
             defener.GetComponent<Animator>().SetTrigger("Hit");
         }
-<<<<<<< HEAD
+
         //Update UI
+
         UpdateHealthBarOnAttack?.Invoke(CurrentHealth, MaxHealth);
        //经验update
         if (CurrentHealth <= 0)
             attacker.characterData.UpdateExp(characterData.killPoint);
-=======
-    //    //Update UI
-    //    UpdateHealthBarOnAttack?.Invoke(CurrentHealth, MaxHealth);
-    //    //经验update
-    //    if (CurrentHealth <= 0)
-    //        attacker.characterData.UpdateExp(characterData.killPoint);
->>>>>>> 8f07056dcb20f0714836c7111f7189d1d81457be
+
+
     }
 
     public void TakeDamage(int damage, CharacterStats defener)
