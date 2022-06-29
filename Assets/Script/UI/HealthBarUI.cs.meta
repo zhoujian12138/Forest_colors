@@ -4,7 +4,7 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - healthUIPrefab: {fileID: 4084210282809685536, guid: 23d13deb8f4cdb548887d22be461eed6, type: 3}
+  - healthUIPrefab: {fileID: 1235684930607031992, guid: ee24d444ecadf3147963d5741115ae55, type: 3}
   - barPoint: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}

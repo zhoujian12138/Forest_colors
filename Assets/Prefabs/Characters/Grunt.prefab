@@ -770,6 +770,7 @@ GameObject:
   - component: {fileID: 1735105277369727074}
   - component: {fileID: 1735105277369727073}
   - component: {fileID: 1735105277369727072}
+  - component: {fileID: 3597975228673321608}
   m_Layer: 0
   m_Name: Grunt
   m_TagString: Enemy
@@ -881,6 +882,22 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &3597975228673321608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735105278976391367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a101bd626a852640831eb7f7a3f8031, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthUIPrefab: {fileID: 1235684930607031992, guid: ee24d444ecadf3147963d5741115ae55, type: 3}
+  barPoint: {fileID: 4642746677571456497}
+  alwaysVisble: 0
+  visibleTime: 3
 --- !u!1 &1735105279121406666
 GameObject:
   m_ObjectHideFlags: 0

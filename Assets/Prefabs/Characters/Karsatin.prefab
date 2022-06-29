@@ -665,6 +665,7 @@ GameObject:
   - component: {fileID: 1002049514515829736}
   - component: {fileID: 1002049514515829743}
   - component: {fileID: 1002049514515829738}
+  - component: {fileID: 5331980960324784287}
   m_Layer: 7
   m_Name: Karsatin
   m_TagString: Enemy
@@ -685,6 +686,7 @@ Transform:
   m_Children:
   - {fileID: 1002049514143868750}
   - {fileID: 1002049514642073968}
+  - {fileID: 6421583008875522556}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -776,6 +778,22 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &5331980960324784287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1002049514515829742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a101bd626a852640831eb7f7a3f8031, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthUIPrefab: {fileID: 1235684930607031992, guid: ee24d444ecadf3147963d5741115ae55, type: 3}
+  barPoint: {fileID: 6421583008875522556}
+  alwaysVisble: 0
+  visibleTime: 3
 --- !u!1 &1002049514626075214
 GameObject:
   m_ObjectHideFlags: 0
@@ -911,3 +929,33 @@ SkinnedMeshRenderer:
     m_Center: {x: -94.448425, y: -11.778332, z: -2.2719574}
     m_Extent: {x: 168.41486, y: 97.625046, z: 113.145996}
   m_DirtyAABB: 0
+--- !u!1 &8101401101552803487
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6421583008875522556}
+  m_Layer: 0
+  m_Name: HealthBar Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6421583008875522556
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8101401101552803487}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.4, z: 0}
+  m_LocalScale: {x: 0.83333325, y: 0.83333325, z: 0.83333325}
+  m_Children: []
+  m_Father: {fileID: 1002049514515829748}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
