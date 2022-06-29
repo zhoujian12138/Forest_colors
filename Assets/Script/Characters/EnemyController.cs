@@ -30,14 +30,15 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
     public float patrolRange;
     private Vector3 wayPoint;
     private Vector3 guardPos;
- 
 
-   
+    public GameObject Partol;
+
+
     bool isWalk;
     bool isChase;
     bool isFollow;
     bool playerDead;
-    bool isDead;
+    public bool isDead;
 
     void Awake()
     {
@@ -81,7 +82,11 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
     void Update()
     {
         if(characterStats.CurrentHealth == 0)
+        {
+            Partol.SetActive(true);
             isDead = true;
+        }
+            
         if (!playerDead)
         {
             SwitchStates();

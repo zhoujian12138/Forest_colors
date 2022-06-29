@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class Karsatin : EnemyController
 {
+
+    
     [Header("Skill")]
     public float kickForce = 20;
     public void KickOff()
