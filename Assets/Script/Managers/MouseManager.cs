@@ -16,6 +16,7 @@ public class MouseManager : Singleton<MouseManager>
         DontDestroyOnLoad(this);
     }
 
+   
     void Update()
     {
         SetCursorTexture();
