@@ -43,3 +43,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9026c5f637ff69946b792d26ff97884b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StopCanvasPrefab: {fileID: 4104708529509612959, guid: 5c8146eb7f60fd8428168c2b55a1d75e, type: 3}

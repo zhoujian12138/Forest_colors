@@ -8,6 +8,7 @@ public class SceneController : Singleton<SceneController>,IEndGameObserver
 {
     public GameObject playerPrefab;
     public SceneFader sceneFaderPrefab;
+    public GameObject deathCanvasUIPrefab;
     bool fadeFinished;
 
     GameObject player;
@@ -122,23 +123,14 @@ public class SceneController : Singleton<SceneController>,IEndGameObserver
         yield break;
     }
 
-    IEnumerator LoadMainAfterDie()
-    {
-        yield return new WaitForSeconds(2);
-        SceneFader fade = Instantiate(sceneFaderPrefab);
-        yield return StartCoroutine(fade.FadeOut(0.5f));
-        yield return SceneManager.LoadSceneAsync("MainMenu");
-        yield return StartCoroutine(fade.FadeIn(0.5f));
-        yield break;
-    }
 
     public void EndNotify()
     {
         if (fadeFinished)
-        {
-            
+        {           
             fadeFinished = false;
-            StartCoroutine(LoadMainAfterDie());
+            GameObject death= Instantiate(deathCanvasUIPrefab);
+            death.SetActive(true);
         }
     }
 }

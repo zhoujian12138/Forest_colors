@@ -6,8 +6,9 @@ using UnityEngine.SceneManagement;
 public class SaveManager : Singleton<SaveManager>
 {
     string sceneName="";
-
+    public GameObject StopCanvasPrefab;
     public string SceneName { get { return PlayerPrefs.GetString(sceneName); } }
+    //bool once=true;
 
     protected override void Awake()
     {
@@ -19,17 +20,20 @@ public class SaveManager : Singleton<SaveManager>
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-
-            SceneController.Instance.TransitionToMain();
-        }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            SavePlayerData();
-        }
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            LoadPlayerData();
+            GameObject pause = Instantiate(StopCanvasPrefab);
+            Time.timeScale = 0f;
+            pause.SetActive(true);
+            //TODO:解决两次esc暂停界面开启和关闭
+           /* if (once) {
+                once = false;
+                GameObject pause = Instantiate(StopCanvasPrefab);
+                Time.timeScale = 0f;
+                pause.SetActive(true);
+            }
+            else {
+                once = true;
+                //TODO:清除生成的屏幕                           
+            }*/
         }
     }
 

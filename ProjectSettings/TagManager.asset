@@ -9,6 +9,7 @@ TagManager:
   - Portal
   - Item
   - Attackable
+  - UI
   layers:
   - Default
   - TransparentFX
