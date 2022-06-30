@@ -114,6 +114,16 @@ public class SceneController : Singleton<SceneController>,IEndGameObserver
 
     IEnumerator LoadMain()
     {
+        //yield return new WaitForSeconds(2);
+        SceneFader fade = Instantiate(sceneFaderPrefab);
+        yield return StartCoroutine(fade.FadeOut(0.5f));
+        yield return SceneManager.LoadSceneAsync("MainMenu");
+        yield return StartCoroutine(fade.FadeIn(0.5f));
+        yield break;
+    }
+
+    IEnumerator LoadMainAfterDie()
+    {
         yield return new WaitForSeconds(2);
         SceneFader fade = Instantiate(sceneFaderPrefab);
         yield return StartCoroutine(fade.FadeOut(0.5f));
@@ -126,8 +136,9 @@ public class SceneController : Singleton<SceneController>,IEndGameObserver
     {
         if (fadeFinished)
         {
+            
             fadeFinished = false;
-            StartCoroutine(LoadMain());
+            StartCoroutine(LoadMainAfterDie());
         }
     }
 }
