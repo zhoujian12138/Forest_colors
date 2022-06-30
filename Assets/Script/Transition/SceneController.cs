@@ -66,6 +66,7 @@ public class SceneController : Singleton<SceneController>
 
     public void TransitionToFirstLevel()
     {
+        
         StartCoroutine(LoadLevel("testScene"));
     }
 
