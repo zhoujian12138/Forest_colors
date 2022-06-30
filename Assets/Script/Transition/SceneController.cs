@@ -30,6 +30,8 @@ public class SceneController : Singleton<SceneController>
         }
     }
 
+ 
+
     IEnumerator Transition(string sceneName, TransitionDestination.DestinationTag destinationTag)
     {
         if (SceneManager.GetActiveScene().name != sceneName)
@@ -60,5 +62,27 @@ public class SceneController : Singleton<SceneController>
                 return entrances[i];
         }
         return null;
+    }
+
+    public void TransitionToFirstLevel()
+    {
+        StartCoroutine(LoadLevel("testScene"));
+    }
+
+    IEnumerator LoadLevel(string scene)
+    {
+        //SceneFader fade = Instantiate(sceneFaderPrefab);
+        if (scene != "")
+        {
+            //yield return StartCoroutine(fade.FadeOut(2f));
+            yield return SceneManager.LoadSceneAsync(scene);
+            yield return player = Instantiate(playerPrefab, GameManager.Instance.GetEntrance().position, GameManager.Instance.GetEntrance().rotation);
+
+            //±£´æÊý¾Ý
+            //SaveManager.Instance.SavePlayerData();
+            //InventoryManager.Instance.SaveData();
+            //yield return StartCoroutine(fade.FadeIn(2f));
+            yield break;
+        }
     }
 }

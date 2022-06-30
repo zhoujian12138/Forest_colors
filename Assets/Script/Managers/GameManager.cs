@@ -47,14 +47,14 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-//   public Transform GetEntrance()
-//    {
-//        foreach (var item in FindObjectsOfType<TransitionDestination>())
-//        {
-//            if (item.destinationTag == TransitionDestination.DestinationTag.ENTER)
-//                return item.transform;
-//        }
-//        return null;
-//    }
+   public Transform GetEntrance()
+    {
+        foreach (var item in FindObjectsOfType<TransitionDestination>())
+        {
+            if (item.destinationTag == TransitionDestination.DestinationTag.Enter)
+                return item.transform;
+        }
+        return null;
+    }
 }
 
