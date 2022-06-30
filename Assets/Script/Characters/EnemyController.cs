@@ -243,6 +243,8 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         coll.enabled = false;
         //agent.enabled = false;
         agent.radius = 0;
+        anim.ResetTrigger("Attack");
+        anim.ResetTrigger("Skill");
         Destroy(gameObject,2f);
         }
     void GuardAction()

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Karsatin Attack
   m_EditorClassIdentifier: 
   maxHealth: 80
-  currentHealth: 10
+  currentHealth: 40
   baseDefence: 3
   currentDefence: 3
   killPoint: 100

@@ -17,7 +17,7 @@ MonoBehaviour:
   baseDefence: 2
   currentDefence: 2
   killPoint: 0
-  currentLevel: 1
+  currentLevel: 3
   maxLevel: 30
   baseExp: 30
   currentExp: 0

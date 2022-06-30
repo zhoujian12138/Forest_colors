@@ -27,8 +27,6 @@ public class PlayerHealthUI : MonoBehaviour
     {
         float sliderPercent = (float)GameManager.Instance.playerStats.CurrentHealth / GameManager.Instance.playerStats.MaxHealth;
         healthSlider.fillAmount = sliderPercent;
-        Debug.Log("HP" + sliderPercent);
-        Debug.Log("Slider" + healthSlider.fillAmount);
     }
 
     void UpdateExp()
