@@ -4,9 +4,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.AI;
 
-public class SceneController : Singleton<SceneController>
+public class SceneController : Singleton<SceneController>,IEndGameObserver
 {
     public GameObject playerPrefab;
+    public SceneFader sceneFaderPrefab;
+    bool fadeFinished;
 
     GameObject player;
     NavMeshAgent playerAgent;
@@ -15,6 +17,12 @@ public class SceneController : Singleton<SceneController>
     {
         base.Awake();
         DontDestroyOnLoad(this);
+    }
+
+    void Start()
+    {
+        GameManager.Instance.AddObserver(this);
+        fadeFinished = true;
     }
 
     public void TransitionToDestination(TransitionPoint transitionPoint)
@@ -34,19 +42,23 @@ public class SceneController : Singleton<SceneController>
 
     IEnumerator Transition(string sceneName, TransitionDestination.DestinationTag destinationTag)
     {
+        SceneFader fade = Instantiate(sceneFaderPrefab);
         if (SceneManager.GetActiveScene().name != sceneName)
         {
-            
+            yield return StartCoroutine(fade.FadeOut(0.5f));
             yield return SceneManager.LoadSceneAsync (sceneName);
-            yield return Instantiate(playerPrefab, GetDestination(destinationTag).transform.position, GetDestination(destinationTag).transform.rotation);          
+            yield return Instantiate(playerPrefab, GetDestination(destinationTag).transform.position, GetDestination(destinationTag).transform.rotation);
+            yield return StartCoroutine(fade.FadeIn(0.5f));
             yield break;
         }
         else
         {
             player = GameManager.Instance.playerStats.gameObject;
             playerAgent = player.GetComponent<NavMeshAgent>();
+            yield return StartCoroutine(fade.FadeOut(0.5f));
             playerAgent.enabled = false;
             player.transform.SetPositionAndRotation(GetDestination(destinationTag).transform.position, GetDestination(destinationTag).transform.rotation);
+            yield return StartCoroutine(fade.FadeIn(0.5f));
             playerAgent.enabled = true;
             yield return null;
         }
@@ -64,6 +76,11 @@ public class SceneController : Singleton<SceneController>
         return null;
     }
 
+    public void TransitionToMain()
+    {
+        StartCoroutine(LoadMain());
+    }
+
     public void TransitionToFirstLevel()
     {
         
@@ -72,18 +89,37 @@ public class SceneController : Singleton<SceneController>
 
     IEnumerator LoadLevel(string scene)
     {
-        //SceneFader fade = Instantiate(sceneFaderPrefab);
+        SceneFader fade = Instantiate(sceneFaderPrefab);
         if (scene != "")
         {
-            //yield return StartCoroutine(fade.FadeOut(2f));
+            yield return StartCoroutine(fade.FadeOut(0.5f));
             yield return SceneManager.LoadSceneAsync(scene);
             yield return player = Instantiate(playerPrefab, GameManager.Instance.GetEntrance().position, GameManager.Instance.GetEntrance().rotation);
 
             //±£´æÊý¾Ý
             //SaveManager.Instance.SavePlayerData();
             //InventoryManager.Instance.SaveData();
-            //yield return StartCoroutine(fade.FadeIn(2f));
+            yield return StartCoroutine(fade.FadeIn(0.5f));
             yield break;
+        }
+    }
+
+    IEnumerator LoadMain()
+    {
+        yield return new WaitForSeconds(2);
+        SceneFader fade = Instantiate(sceneFaderPrefab);
+        yield return StartCoroutine(fade.FadeOut(0.5f));
+        yield return SceneManager.LoadSceneAsync("MainMenu");
+        yield return StartCoroutine(fade.FadeIn(0.5f));
+        yield break;
+    }
+
+    public void EndNotify()
+    {
+        if (fadeFinished)
+        {
+            fadeFinished = false;
+            StartCoroutine(LoadMain());
         }
     }
 }
