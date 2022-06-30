@@ -48,7 +48,6 @@ public class HealthBarUI : MonoBehaviour
 
         if (UIbar != null)
         {
-            Debug.Log("USED");
             UIbar.gameObject.SetActive(true);
             timeLeft = visibleTime;
 
