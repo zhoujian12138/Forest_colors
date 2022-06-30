@@ -28,15 +28,13 @@ public class PlayerController : MonoBehaviour
     {
         MouseManager.Instance.OnMouseClicked += MoveToTarget;
         MouseManager.Instance.OnEnemyClicked += EventAttack;
-        //GameManager.Instance.RigisterPlayer(characterStats);
+        GameManager.Instance.RigisterPlayer(characterStats);
     }
 
     void Start()
     {
-        //MouseManager.Instance.OnMouseClicked += MoveToTarget;
-        //MouseManager.Instance.OnEnemyClicked += EventAttack;
-        //SaveManager.Instance.LoadPlayerData();
-        GameManager.Instance.RigisterPlayer(characterStats);
+        SaveManager.Instance.LoadPlayerData();
+        
     }
 
     void OnDisable()

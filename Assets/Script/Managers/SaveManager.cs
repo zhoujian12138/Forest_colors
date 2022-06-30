@@ -1,9 +1,11 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SaveManager : Singleton<SaveManager>
 {
-    string sceneName = "level";
+    string sceneName="";
 
     public string SceneName { get { return PlayerPrefs.GetString(sceneName); } }
 
@@ -15,10 +17,11 @@ public class SaveManager : Singleton<SaveManager>
 
     void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Escape))
-        //{
-        //    SceneController.Instance.TransitionToMain();
-        //}
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+
+            SceneController.Instance.TransitionToMain();
+        }
         if (Input.GetKeyDown(KeyCode.P))
         {
             SavePlayerData();

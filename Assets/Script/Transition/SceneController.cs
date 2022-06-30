@@ -43,11 +43,15 @@ public class SceneController : Singleton<SceneController>,IEndGameObserver
     IEnumerator Transition(string sceneName, TransitionDestination.DestinationTag destinationTag)
     {
         SceneFader fade = Instantiate(sceneFaderPrefab);
+        SaveManager.Instance.SavePlayerData();
+        //InventoryManager.Instance.SaveData();
+        //QuestManager.Instance.SaveQuestManager();
         if (SceneManager.GetActiveScene().name != sceneName)
         {
             yield return StartCoroutine(fade.FadeOut(0.5f));
             yield return SceneManager.LoadSceneAsync (sceneName);
             yield return Instantiate(playerPrefab, GetDestination(destinationTag).transform.position, GetDestination(destinationTag).transform.rotation);
+            SaveManager.Instance.LoadPlayerData();
             yield return StartCoroutine(fade.FadeIn(0.5f));
             yield break;
         }
@@ -81,6 +85,11 @@ public class SceneController : Singleton<SceneController>,IEndGameObserver
         StartCoroutine(LoadMain());
     }
 
+    public void TransitionToLoadGame()
+    {
+        StartCoroutine(LoadLevel(SaveManager.Instance.SceneName));
+    }
+
     public void TransitionToFirstLevel()
     {
         
@@ -96,8 +105,7 @@ public class SceneController : Singleton<SceneController>,IEndGameObserver
             yield return SceneManager.LoadSceneAsync(scene);
             yield return player = Instantiate(playerPrefab, GameManager.Instance.GetEntrance().position, GameManager.Instance.GetEntrance().rotation);
 
-            //±£´æÊý¾Ý
-            //SaveManager.Instance.SavePlayerData();
+            SaveManager.Instance.SavePlayerData();
             //InventoryManager.Instance.SaveData();
             yield return StartCoroutine(fade.FadeIn(0.5f));
             yield break;

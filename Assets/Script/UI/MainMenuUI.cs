@@ -41,6 +41,7 @@ public class MainMenuUI : MonoBehaviour
     void ContinueGame()
     {
         //转换场景，读取进度
+        SceneController.Instance.TransitionToLoadGame();
     }
 
     void QuitGame()
