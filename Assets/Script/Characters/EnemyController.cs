@@ -11,7 +11,7 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
 {
     private EnemyStates enemyStates;
     private NavMeshAgent agent;
-    private Animator anim;
+    protected Animator anim;
     private Collider coll;
     protected CharacterStats characterStats;
 
@@ -22,7 +22,7 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
     protected GameObject attackTarget;
     public float lookAtTime;
     private float remainLookAtTime;
-    private float lastAttackTime;
+    protected float lastAttackTime;
     private Quaternion guardRotation;
 
 
@@ -34,10 +34,10 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
     public GameObject Partol;
 
 
-    bool isWalk;
-    bool isChase;
-    bool isFollow;
-    bool playerDead;
+     bool isWalk;
+     bool isChase;
+     bool isFollow;
+    protected bool playerDead;
     public bool isDead;
 
     void Awake()
@@ -79,7 +79,7 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         GameManager.Instance.RemoveObserver(this);
     }
 
-    void Update()
+   protected virtual void Update()
     {
         if(characterStats.CurrentHealth == 0)
         {
@@ -96,7 +96,7 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
 
     }
 
-    void SwitchAnimation()
+    protected virtual void SwitchAnimation()
     {
         anim.SetBool("Walk", isWalk);
         anim.SetBool("Chase", isChase);
@@ -104,7 +104,7 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         anim.SetBool("Critical", characterStats.isCritical);
         anim.SetBool("Death",isDead);
     }
-    void SwitchStates()
+   protected void SwitchStates()
     {
         if(isDead)
         enemyStates = EnemyStates.DEAD;
@@ -241,10 +241,7 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         void DeadAction()
         {
         coll.enabled = false;
-        //agent.enabled = false;
         agent.radius = 0;
-        anim.ResetTrigger("Attack");
-        anim.ResetTrigger("Skill");
         Destroy(gameObject,2f);
         }
     void GuardAction()
