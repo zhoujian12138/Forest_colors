@@ -18,4 +18,5 @@ MonoBehaviour:
   itemAmount: 1
   description: "\u5251\u662F\u5468\u5251\u4E0D\u662F\u5468\u5EFA"
   stackable: 0
-  weaponPrefab: {fileID: 5128582105091164060, guid: 2c0fa91fa42d5fb4cac3742da49d0f8e, type: 3}
+  weaponPrefab: {fileID: 1483423122773662, guid: 188dd74d9bb29cc4dba7be8694cca269, type: 3}
+  weaponData: {fileID: 11400000, guid: e2e58f786477ae844895e9ece22b6064, type: 2}

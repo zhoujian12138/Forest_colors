@@ -7,11 +7,11 @@ public class CharacterStats : MonoBehaviour
     public CharacterData_SO templateData;
     public CharacterData_SO characterData;
     public  AttackData_SO attackData;
-    //private AttackData_SO baseAttackData;
-    //private RuntimeAnimatorController baseAnimator;
+    private AttackData_SO baseAttackData;
+    private RuntimeAnimatorController baseAnimator;
 
-    //[Header("Weapon")]
-    //public Transform weaponSlot;
+    [Header("Weapon")]
+    public Transform weaponSlot;
 
     [HideInInspector]
     public  bool isCritical;
@@ -21,8 +21,8 @@ public class CharacterStats : MonoBehaviour
         if (templateData != null)
             characterData = Instantiate(templateData);
 
-        //baseAttackData = Instantiate(attackData);
-        //baseAnimator = GetComponent<Animator>().runtimeAnimatorController;
+        baseAttackData = Instantiate(attackData);
+        baseAnimator = GetComponent<Animator>().runtimeAnimatorController;
     }
 
 
@@ -97,24 +97,23 @@ public class CharacterStats : MonoBehaviour
 
     #endregion
 
-    //#region Equip Weapon
-    //public void ChangeWeapon(ItemData_SO weapon)
-    //{
-    //    UnEquipWeapon();
-    //    EquipWeapon(weapon);
-    //}
+    #region Equip Weapon
+    public void ChangeWeapon(ItemData_SO weapon)
+    {
+        //UnEquipWeapon();
+        EquipWeapon(weapon);
+    }
 
-    //public void EquipWeapon(ItemData_SO weapon)
-    //{
-    //    if (weapon.weaponPrefab != null)
-    //        Instantiate(weapon.weaponPrefab, weaponSlot);
+    public void EquipWeapon(ItemData_SO weapon)
+    {
+        if (weapon.weaponPrefab != null)
+            Instantiate(weapon.weaponPrefab, weaponSlot);
+        Debug.Log(weaponSlot.position);
 
-    //    //TODO:��������
-    //    //TODO:�л�����
-    //    attackData.ApplyWeaponData(weapon.weaponData);
-    //    GetComponent<Animator>().runtimeAnimatorController = weapon.weaponAnimator;
-    //    // InventoryManager.Instance.UpdateStatsText(MaxHealth, attackData.minDamge, attackData.maxDamage);
-    //}
+        attackData.ApplyWeaponData(weapon.weaponData);
+        //GetComponent<Animator>().runtimeAnimatorController = weapon.weaponAnimator;
+        // InventoryManager.Instance.UpdateStatsText(MaxHealth, attackData.minDamge, attackData.maxDamage);
+    }
 
     //public void UnEquipWeapon()
     //{
@@ -129,16 +128,16 @@ public class CharacterStats : MonoBehaviour
     //    //TODO:�л�����
     //    GetComponent<Animator>().runtimeAnimatorController = baseAnimator;
     //}
-    //#endregion
+    #endregion
 
-    //#region Apply Data Change
-    //public void ApplyHealth(int amount)
-    //{
-    //    if (CurrentHealth + amount <= MaxHealth)
-    //        CurrentHealth += amount;
-    //    else
-    //        CurrentHealth = MaxHealth;
-    //}
-    //#endregion
+    #region Apply Data Change
+    public void ApplyHealth(int amount)
+    {
+        if (CurrentHealth + amount <= MaxHealth)
+            CurrentHealth += amount;
+        else
+            CurrentHealth = MaxHealth;
+    }
+    #endregion
 
 }

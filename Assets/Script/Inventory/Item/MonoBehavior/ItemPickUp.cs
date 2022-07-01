@@ -11,6 +11,7 @@ public class ItemPickUp : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             //×°±¸ÎäÆ÷
+            GameManager.Instance.playerStats.EquipWeapon(itemData);
             Destroy(gameObject);
         }
     }
