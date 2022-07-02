@@ -11,7 +11,9 @@ public class ItemPickUp : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             //将物品添加到背包
-          //  InventoryManager.Instance.inventoryData.AddItem(itemData, itemData.itemAmount);
+            Debug.Log("pendao");
+            InventoryManager.Instance.inventoryData.AddItem(itemData, itemData.itemAmount);
+            InventoryManager.Instance.inventoryUI.RefreshUI();
             //装备武器
             GameManager.Instance.playerStats.EquipWeapon(itemData);
             Destroy(gameObject);
