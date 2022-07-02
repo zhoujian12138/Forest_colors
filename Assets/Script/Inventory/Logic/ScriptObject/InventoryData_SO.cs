@@ -28,7 +28,6 @@ public class InventoryData_SO : ScriptableObject
             {
                 items[i].itemData = newItemData;
                 items[i].amount = amount;
-                Debug.Log("TIANJIA");
                 break;
             }
         }
