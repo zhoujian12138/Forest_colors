@@ -470,8 +470,8 @@ MonoBehaviour:
   Partol: {fileID: 1166730722654471876}
   isDead: 0
   kickForce: 25
-  rockPrefab: {fileID: 0}
-  handPos: {fileID: 0}
+  rockPrefab: {fileID: 4433758900222970847, guid: b2399a368ea673848a47a5fb80587fcb, type: 3}
+  handPos: {fileID: 7339568979455437719}
 --- !u!114 &7339568980784005047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -487,6 +487,7 @@ MonoBehaviour:
   templateData: {fileID: 11400000, guid: eaccba6b4c91478478b4ea5a8955041f, type: 2}
   characterData: {fileID: 0}
   attackData: {fileID: 11400000, guid: 840979a1045ca12478892c0cd456e5d2, type: 2}
+  weaponSlot: {fileID: 0}
   isCritical: 0
 --- !u!195 &7339568980784005046
 NavMeshAgent:
