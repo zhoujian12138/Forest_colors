@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6539554106877018662}
   - component: {fileID: 1306578945289241269}
   - component: {fileID: 8322646810638844875}
-  - component: {fileID: 495928370219743044}
+  - component: {fileID: 2636977404081167011}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
@@ -128,7 +128,7 @@ CapsuleCollider:
   m_Height: 1.3304192
   m_Direction: 1
   m_Center: {x: -0.000000044703484, y: -0.49534118, z: 0.00000005960466}
---- !u!114 &495928370219743044
+--- !u!114 &2636977404081167011
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
