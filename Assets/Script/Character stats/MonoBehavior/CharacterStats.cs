@@ -108,7 +108,6 @@ public class CharacterStats : MonoBehaviour
     {
         if (weapon.weaponPrefab != null)
             Instantiate(weapon.weaponPrefab, weaponSlot);
-        Debug.Log(weaponSlot.position);
 
         attackData.ApplyWeaponData(weapon.weaponData);
         //GetComponent<Animator>().runtimeAnimatorController = weapon.weaponAnimator;
