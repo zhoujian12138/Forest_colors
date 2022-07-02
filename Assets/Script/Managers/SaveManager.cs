@@ -8,32 +8,24 @@ public class SaveManager : Singleton<SaveManager>
     string sceneName="";
     public GameObject StopCanvasPrefab;
     public string SceneName { get { return PlayerPrefs.GetString(sceneName); } }
-    //bool once=true;
-
-    protected override void Awake()
-    {
-        base.Awake();
-        DontDestroyOnLoad(this);
-    }
+    bool once=true;
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape)&& SceneManager.GetActiveScene().name!="MainMenu")
         {
-            GameObject pause = Instantiate(StopCanvasPrefab);
-            Time.timeScale = 0f;
-            pause.SetActive(true);
-            //TODO:解决两次esc暂停界面开启和关闭
-           /* if (once) {
-                once = false;
-                GameObject pause = Instantiate(StopCanvasPrefab);
+            if (once)
+            {
+                once = false;           
                 Time.timeScale = 0f;
-                pause.SetActive(true);
+                StopCanvasPrefab.SetActive(true);
             }
-            else {
+            else
+            {
                 once = true;
-                //TODO:清除生成的屏幕                           
-            }*/
+                StopCanvasPrefab.SetActive(false);
+                Time.timeScale = 1f;
+            }
         }
     }
 

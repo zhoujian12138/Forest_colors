@@ -22,7 +22,7 @@ public class StopCanvasUI : MonoBehaviour
 
     void BackGame()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
         Time.timeScale = 1f;
     }
 
