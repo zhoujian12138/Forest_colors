@@ -29,4 +29,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/mission2_02.unity
     guid: 1a6da4564d47c0642a1df4bdb23a0ae7
+  - enabled: 1
+    path: Assets/Scenes/mission4_02.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/mission4_01.unity
+    guid: f68a33a3a1f81a54499a50347fcf0d71
   m_configObjects: {}

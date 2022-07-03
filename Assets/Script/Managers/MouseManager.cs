@@ -19,8 +19,9 @@ public class MouseManager : Singleton<MouseManager>
    
     void Update()
     {
-        SetCursorTexture();
-        if (InteractWithUI()) return;
+
+        if (InteractWithUI()) { return; }
+        else { SetCursorTexture(); }
         MouseControl();
     }
 
