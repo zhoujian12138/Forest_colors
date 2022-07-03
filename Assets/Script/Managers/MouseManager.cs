@@ -20,7 +20,7 @@ public class MouseManager : Singleton<MouseManager>
     void Update()
     {
         SetCursorTexture();
-        //if (InteractWithUI()) return;
+        if (InteractWithUI()) return;
         MouseControl();
     }
 
@@ -80,12 +80,12 @@ public class MouseManager : Singleton<MouseManager>
         }
     }
 
-    //bool InteractWithUI()
-    //{
-    //    if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
-    //    {
-    //        return true;
-    //    }
-    //    else return false;
-    //}
+    bool InteractWithUI()
+    {
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+        {
+            return true;
+        }
+        else return false;
+    }
 }

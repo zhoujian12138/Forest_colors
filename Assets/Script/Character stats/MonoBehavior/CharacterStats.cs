@@ -100,7 +100,7 @@ public class CharacterStats : MonoBehaviour
     #region Equip Weapon
     public void ChangeWeapon(ItemData_SO weapon)
     {
-        //UnEquipWeapon();
+        UnEquipWeapon();
         EquipWeapon(weapon);
     }
 
@@ -109,24 +109,25 @@ public class CharacterStats : MonoBehaviour
         if (weapon.weaponPrefab != null)
             Instantiate(weapon.weaponPrefab, weaponSlot);
 
+        //更新属性，切换动画
         attackData.ApplyWeaponData(weapon.weaponData);
         //GetComponent<Animator>().runtimeAnimatorController = weapon.weaponAnimator;
         // InventoryManager.Instance.UpdateStatsText(MaxHealth, attackData.minDamge, attackData.maxDamage);
     }
 
-    //public void UnEquipWeapon()
-    //{
-    //    if (weaponSlot.transform.childCount != 0)
-    //    {
-    //        for (int i = 0; i < weaponSlot.transform.childCount; i++)
-    //        {
-    //            Destroy(weaponSlot.transform.GetChild(i).gameObject);
-    //        }
-    //    }
-    //    attackData.ApplyWeaponData(baseAttackData);
-    //    //TODO:�л�����
-    //    GetComponent<Animator>().runtimeAnimatorController = baseAnimator;
-    //}
+    public void UnEquipWeapon()
+    {
+        if (weaponSlot.transform.childCount != 0)
+        {
+            for (int i = 0; i < weaponSlot.transform.childCount; i++)
+            {
+                Destroy(weaponSlot.transform.GetChild(i).gameObject);
+            }
+        }
+        attackData.ApplyWeaponData(baseAttackData);
+        //切换动画
+       // GetComponent<Animator>().runtimeAnimatorController = baseAnimator;
+    }
     #endregion
 
     #region Apply Data Change
