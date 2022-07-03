@@ -126,7 +126,7 @@ public class CharacterStats : MonoBehaviour
         }
         attackData.ApplyWeaponData(baseAttackData);
         //切换动画
-       GetComponent<Animator>().runtimeAnimatorController = baseAnimator;
+        GetComponent<Animator>().runtimeAnimatorController = baseAnimator;
     }
     #endregion
 
