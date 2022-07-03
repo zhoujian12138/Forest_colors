@@ -22,4 +22,5 @@ public class ItemData_SO : ScriptableObject
     public GameObject weaponPrefab;
 
     public AttackData_SO weaponData;
+    public AnimatorOverrideController weaponAnimator;
 }

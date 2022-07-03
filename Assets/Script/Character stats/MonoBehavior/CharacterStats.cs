@@ -111,7 +111,7 @@ public class CharacterStats : MonoBehaviour
 
         //更新属性，切换动画
         attackData.ApplyWeaponData(weapon.weaponData);
-        //GetComponent<Animator>().runtimeAnimatorController = weapon.weaponAnimator;
+        GetComponent<Animator>().runtimeAnimatorController = weapon.weaponAnimator;
         //InventoryManager.Instance.UpdateStatsText(MaxHealth, attackData.minDamge, attackData.maxDamage);
     }
 
@@ -126,7 +126,7 @@ public class CharacterStats : MonoBehaviour
         }
         attackData.ApplyWeaponData(baseAttackData);
         //切换动画
-       // GetComponent<Animator>().runtimeAnimatorController = baseAnimator;
+       GetComponent<Animator>().runtimeAnimatorController = baseAnimator;
     }
     #endregion
 
