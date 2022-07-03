@@ -16,15 +16,18 @@ public class InventoryData_SO : ScriptableObject
         {
             foreach(var item in items)
             {
-                item.amount += amount;
-                found = true;
-                break;
+                if (item.itemData == newItemData)
+                {
+                    item.amount += amount;
+                    found = true;
+                    break;
+                }
             }
         }
 
         for(int i=0;i<items.Count;i++)
         {
-            if(items[i].itemData==null&&!found)
+            if(items[i].itemData == null && !found)
             {
                 items[i].itemData = newItemData;
                 items[i].amount = amount;

@@ -102,6 +102,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ItemSlot
       objectReference: {fileID: 0}
+    - target: {fileID: 7109422188029233831, guid: 9c47ed7f74e5df8479211019f67527b9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8094271532894682866, guid: 9c47ed7f74e5df8479211019f67527b9, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
