@@ -45,7 +45,7 @@ public class SceneController : Singleton<SceneController>,IEndGameObserver
     {
         SceneFader fade = Instantiate(sceneFaderPrefab);
         SaveManager.Instance.SavePlayerData();
-        //InventoryManager.Instance.SaveData();
+        InventoryManager.Instance.SaveData();
         //QuestManager.Instance.SaveQuestManager();
         if (SceneManager.GetActiveScene().name != sceneName)
         {
@@ -107,7 +107,7 @@ public class SceneController : Singleton<SceneController>,IEndGameObserver
             yield return player = Instantiate(playerPrefab, GameManager.Instance.GetEntrance().position, GameManager.Instance.GetEntrance().rotation);
 
             SaveManager.Instance.SavePlayerData();
-            //InventoryManager.Instance.SaveData();
+            InventoryManager.Instance.SaveData();
             yield return StartCoroutine(fade.FadeIn(0.5f));
             yield break;
         }

@@ -45,7 +45,8 @@ public class DragItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
                     targetHolder = eventData.pointerEnter.gameObject.GetComponent<SlotHolder>();
                 else
                     targetHolder = eventData.pointerEnter.gameObject.GetComponentInParent<SlotHolder>();
-
+                //判断目标holder是否是我原来的holder
+                if(targetHolder !=InventoryManager.Instance.currentDrag.originalHolder)
                 switch(targetHolder.slotType)
                 {
                     case SlotType.BAG:
