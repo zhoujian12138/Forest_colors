@@ -24,11 +24,25 @@ public class InventoryManager : Singleton<InventoryManager>
     public Canvas dragCanvas;
     public DragData currentDrag;
 
+    [Header("UI Panel")]
+    public GameObject bagPanel;
+    public GameObject statsPanel;
+
+    bool isOpen = false;
     void Start()
     {
         inventoryUI.RefreshUI();
         actionUI.RefreshUI();
         equipmentUI.RefreshUI();
+    }
+     void Update()
+    {
+        if(Input.GetKeyUp(KeyCode.B))
+        {
+            isOpen = !isOpen;
+            bagPanel.SetActive(isOpen);
+            statsPanel.SetActive(isOpen);
+        }
     }
     #region 检查一个物品是否在每一个Slot范围内
     public bool CheckInInventoryUI(Vector3 position)

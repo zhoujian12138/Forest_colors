@@ -19,13 +19,16 @@ public class SlotHolder : MonoBehaviour,IPointerClickHandler
 
     public void UseItem()
     {
-        if (itemUI.GetItem().itemType == ItemType.Useable && itemUI.Bag.items[itemUI.Index].amount > 0)
+        if (itemUI.GetItem() != null)
         {
-            GameManager.Instance.playerStats.ApplyHealth(itemUI.GetItem().UseableData.healthPoint);
+            if (itemUI.GetItem().itemType == ItemType.Useable && itemUI.Bag.items[itemUI.Index].amount > 0)
+            {
+                GameManager.Instance.playerStats.ApplyHealth(itemUI.GetItem().UseableData.healthPoint);
 
-            itemUI.Bag.items[itemUI.Index].amount -= 1;
+                itemUI.Bag.items[itemUI.Index].amount -= 1;
+            }
+            UpdateItem();
         }
-        UpdateItem();
     }
     public void UpdateItem()
     {
