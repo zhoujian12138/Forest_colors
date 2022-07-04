@@ -24,3 +24,6 @@ MonoBehaviour:
   - name: TurtleShell
     requireAmount: 1
     currentAmount: 0
+  rewards:
+  - itemData: {fileID: 11400000, guid: 2c0429e7e20f58343be2f0019af1b51b, type: 2}
+    amount: 1

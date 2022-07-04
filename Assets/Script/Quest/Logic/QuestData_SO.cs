@@ -22,6 +22,6 @@ public class QuestData_SO : ScriptableObject
     public bool isFinished;
 
     public List<QuestRequire> questRequires = new List<QuestRequire> ();
-
+    public List<InventoryItem> rewards = new List<InventoryItem> ();
   
 }
