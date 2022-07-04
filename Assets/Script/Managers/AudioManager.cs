@@ -6,11 +6,16 @@ public class AudioManager : MonoBehaviour
 {
 
     AudioSource[] musicSources;
-    int activeMusicSourceIndex;
+    
 
     public static AudioManager instance;
+    public EnemyController boss;
 
     public AudioClip Theme;
+    public AudioClip Battle;
+
+    bool isPlayBGM;
+    bool isPlayBattleMusic;
 
     void Awake()
     {
@@ -27,38 +32,83 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
-        PlayMusic(Theme, 2);
+        musicSources[0].clip = Theme;
+        musicSources[1].clip = Battle;
+        PlayMusic(0, 2);
+        isPlayBGM = true;
+        isPlayBattleMusic = false;
+    }
+    
+    void Update()
+    {
+        if (boss.enemyStates == EnemyStates.CHASE)
+        {
+            if (!isPlayBattleMusic && isPlayBGM)
+            {
+                StopMusic(0, 4);
+                isPlayBGM = false;
+                PlayMusic(1, 4);
+                isPlayBattleMusic = true;
+            }
+        }
+        else
+        {
+            if (isPlayBattleMusic && !isPlayBGM)
+            {
+                StopMusic(1, 4);
+                isPlayBattleMusic = false;
+                PlayMusic(0, 4);
+                isPlayBGM = true;
+            }
+        }
     }
 
+   
 
     public void PlaySound(AudioClip clip, Vector3 pos)
     {
 
         if (clip != null)
         {
-            AudioSource.PlayClipAtPoint(clip, pos, 0.5f);
+            AudioSource.PlayClipAtPoint(clip, pos, 1);
         }
     }
 
-    public void PlayMusic(AudioClip clip,float fadeDuration)
+    public void PlayMusic(int AudioNum, float fadeDuration)
     {
-        activeMusicSourceIndex = 1 - activeMusicSourceIndex;
-        musicSources[activeMusicSourceIndex].clip = clip;
-        musicSources[activeMusicSourceIndex].loop = true;
-        musicSources[activeMusicSourceIndex].Play();
-        StartCoroutine(AnimateMusicCrossfade(fadeDuration));
+        musicSources[AudioNum].loop = true;
+        
+        musicSources[AudioNum].Play();
+        StartCoroutine(playFade(AudioNum,fadeDuration));
     }
 
+    public void StopMusic(int AudioNum, float fadeDuration)
+    {
+        musicSources[AudioNum].Stop();
+        StartCoroutine(stopFade(AudioNum, fadeDuration));
+    }
 
-    IEnumerator AnimateMusicCrossfade(float duration)
+    IEnumerator stopFade(int fadeNum, float duration)
     {
         float percent = 0;
 
         while (percent < 1)
         {
             percent += Time.deltaTime * 1 / duration;
-            musicSources[activeMusicSourceIndex].volume = Mathf.Lerp(0, 1, percent);
-            musicSources[1 - activeMusicSourceIndex].volume = Mathf.Lerp(1, 0, percent);
+            musicSources[fadeNum].volume = Mathf.Lerp(0.2f, 0, percent);
+            yield return null;
+        }
+    }
+
+
+    IEnumerator playFade(int fadeNum,float duration)
+    {
+        float percent = 0;
+
+        while (percent < 1)
+        {
+            percent += Time.deltaTime * 1 / duration;
+            musicSources[fadeNum].volume = Mathf.Lerp(0, 0.2f, percent);
             yield return null;
         }
     }
