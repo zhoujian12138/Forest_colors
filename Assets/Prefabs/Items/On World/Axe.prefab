@@ -141,3 +141,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: 4aa795837d41eb748a7947d437632b16, type: 2}
+  getObject: {fileID: 8300000, guid: 797b97462e22b1c44b6af926b3199faf, type: 3}

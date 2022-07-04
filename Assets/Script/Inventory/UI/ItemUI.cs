@@ -19,6 +19,13 @@ public class ItemUI : MonoBehaviour
             icon.gameObject.SetActive(false);
             return;
         }
+
+        if (itemAmount < 0)
+        {
+            item = null;
+        }
+       
+
         if (item != null)
         {
             currentItemData = item;

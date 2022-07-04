@@ -132,4 +132,15 @@ public class InventoryManager : Singleton<InventoryManager>
         return false;
     }
     #endregion
+
+    //检测背包和快捷栏物品
+    public InventoryItem QuestItemInBag(ItemData_SO questItem)
+    {
+        return inventoryData.items.Find(i => i.itemData == questItem);
+    }
+
+    public InventoryItem QuestItemInAction(ItemData_SO questItem)
+    {
+        return actionData.items.Find(i => i.itemData == questItem);
+    }
 }

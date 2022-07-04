@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: d3c8031da752e8843a73b49e33390b9a, type: 2}
+  getObject: {fileID: 8300000, guid: 797b97462e22b1c44b6af926b3199faf, type: 3}
 --- !u!136 &2358355287099912737
 CapsuleCollider:
   m_ObjectHideFlags: 0

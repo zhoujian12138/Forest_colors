@@ -58,6 +58,7 @@ public class QuestUI : Singleton<QuestUI>
         foreach (var task in QuestManager.Instance.tasks)
         {
             var newTask = Instantiate(questNameButton, questListTransform);
+            
             newTask.SetupNameButton(task.questData);
           //  newTask.questContentText = questContentText;
         }
@@ -74,6 +75,14 @@ public class QuestUI : Singleton<QuestUI>
         foreach (var require in questData.questRequires)
         {
             var q = Instantiate(requirement, requireTransform);
+            if (questData.isFinished)
+            {
+                q.SetupRequirement(require.name, true);
+            }
+            else
+            {
+                q.SetupRequirement(require.name, require.requireAmount,require.currentAmount);
+            }
             q.SetupRequirement(require.name, require.requireAmount, require.currentAmount);
         }
 
