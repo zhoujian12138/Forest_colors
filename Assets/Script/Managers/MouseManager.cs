@@ -20,7 +20,10 @@ public class MouseManager : Singleton<MouseManager>
     void Update()
     {
 
-        if (InteractWithUI()) { return; }
+        if (InteractWithUI()) {
+            Cursor.SetCursor(arrow, new Vector2(16, 16), CursorMode.Auto);
+            return; 
+        }
         else { SetCursorTexture(); }
         MouseControl();
     }

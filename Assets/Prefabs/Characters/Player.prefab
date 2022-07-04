@@ -486,6 +486,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc87dbf3bdc032a42ae59decc404b9c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  agent: {fileID: 0}
+  attack: {fileID: 8300000, guid: 14c15cb6377f123438b6dfdad50f1fe0, type: 3}
 --- !u!136 &999693263
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -8,6 +8,8 @@ public class PlayerHealthUI : MonoBehaviour
     Text levelText;
     Image healthSlider;
     Image expSlider;
+    public AudioClip levelUP;
+    int level = 2;
 
     void Awake()
     {
@@ -18,10 +20,18 @@ public class PlayerHealthUI : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance.playerStats.characterData.currentLevel == level)
+        {
+            Debug.Log("²¥·Å");
+            AudioManager.instance.PlaySound(levelUP, transform.position);
+            level++;
+        }
         levelText.text = "LEVEL   " + GameManager.Instance.playerStats.characterData.currentLevel.ToString("00");
         UpdateHealth();
         UpdateExp();
     }
+
+    
 
     void UpdateHealth()
     {

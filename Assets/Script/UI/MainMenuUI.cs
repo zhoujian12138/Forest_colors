@@ -14,6 +14,7 @@ public class MainMenuUI : MonoBehaviour
 
     void Awake()
     {
+       
         newGameBtn = transform.GetChild(1).GetComponent<Button>();
         continueBtn= transform.GetChild(2).GetComponent<Button>();
         quitBtn= transform.GetChild(3).GetComponent<Button>();

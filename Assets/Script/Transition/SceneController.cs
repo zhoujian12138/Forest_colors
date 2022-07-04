@@ -115,7 +115,7 @@ public class SceneController : Singleton<SceneController>,IEndGameObserver
 
     IEnumerator LoadMain()
     {
-        //yield return new WaitForSeconds(2);
+        
         SceneFader fade = Instantiate(sceneFaderPrefab);
         yield return StartCoroutine(fade.FadeOut(0.5f));
         yield return SceneManager.LoadSceneAsync("MainMenu");

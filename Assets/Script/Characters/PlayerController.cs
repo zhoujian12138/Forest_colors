@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class PlayerController : MonoBehaviour
 {
-    private NavMeshAgent agent;
+    public NavMeshAgent agent;
     private Animator anim;
     private CharacterStats characterStats;
 
@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     public static bool isDead;
 
     private float stopDistance;
+
+    public AudioClip attack;
 
     void Awake()
     {
@@ -134,7 +136,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 var targetStats = attackTarget.GetComponent<CharacterStats>();
-
+                AudioManager.instance.PlaySound(attack, transform.position);
                 targetStats.TakeDamage(characterStats, targetStats);
             }
         }

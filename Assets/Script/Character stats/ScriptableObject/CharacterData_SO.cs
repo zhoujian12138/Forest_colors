@@ -20,6 +20,7 @@ public class CharacterData_SO : ScriptableObject
     public int baseExp;
     public int currentExp;
     public float levelBuff;
+   
 
     public float LevelMultiplier
     {
@@ -29,12 +30,17 @@ public class CharacterData_SO : ScriptableObject
     {
         currentExp += point;
         if(currentExp >= baseExp)
+        {
+            
             LevelUp();
+            
+        }            
     }
     private void LevelUp()
     {
         //想提升的属性
         currentLevel = Mathf.Clamp(currentLevel + 1,0,maxLevel);
+        
         baseExp += (int)(baseExp * LevelMultiplier);
         maxHealth = (int)(maxHealth * LevelMultiplier);
         currentHealth = maxHealth;
