@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f19c9a3b446d004d951292c176024cc, type: 3}
+  m_Name: GiantShied
+  m_EditorClassIdentifier: 
+  itemType: 2
+  itemName: GiantShied
+  itemIcon: {fileID: 21300000, guid: 71e1df3a86450074a89620810569c369, type: 3}
+  itemAmount: 1
+  description: "\u8DB3\u4EE5\u683C\u6863\u7EDD\u5927\u591A\u6570\u653B\u51FB\uFF0C\u4F46\u5DE8\u5927\u7684\u76FE\u724C\u4F1A\u4F7F\u4EBA\u96BE\u4EE5\u51FA\u624B\u3002"
+  stackable: 0
+  UseableData: {fileID: 0}
+  weaponPrefab: {fileID: 1922396520551734707, guid: a8d15d1b09c41924fabf4d1e1142e6c6, type: 3}
+  weaponData: {fileID: 11400000, guid: 20006dcf7af8600488e27dcc6a4df27e, type: 2}
+  weaponAnimator: {fileID: 22100000, guid: 419a7c0c7e9211b4ca440ec84fdd6360, type: 2}
