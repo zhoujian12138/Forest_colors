@@ -9,12 +9,13 @@ public class CharacterStats : MonoBehaviour
     public  AttackData_SO attackData;
     private AttackData_SO baseAttackData;
     private RuntimeAnimatorController baseAnimator;
+    public bool isCriticaled;
 
     [Header("Weapon")]
     public Transform weaponSlot;
 
     [HideInInspector]
-    public  bool isCritical;
+    public  bool isCritical=false;
 
     void Awake()
     {
@@ -62,8 +63,12 @@ public class CharacterStats : MonoBehaviour
         if (attacker.isCritical)
         {
             defener.GetComponent<Animator>().SetTrigger("Hit");
+            defener.isCriticaled = true;
         }
-
+        else
+        {
+            defener.isCriticaled = false;
+        }
         //Update UI
 
         UpdateHealthBarOnAttack?.Invoke(CurrentHealth, MaxHealth);

@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     public NavMeshAgent agent;
     private Animator anim;
-    private CharacterStats characterStats;
+    private CharacterStats characterStats; 
 
     private GameObject attackTarget;
     private float lastAttackTime;
@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private float stopDistance;
 
     public AudioClip attack;
+    public AudioClip Hurt;
 
     void Awake()
     {
@@ -25,6 +26,8 @@ public class PlayerController : MonoBehaviour
         characterStats = GetComponent<CharacterStats>();
         stopDistance = agent.stoppingDistance;
     }
+
+
 
     void OnEnable()
     {
@@ -75,7 +78,7 @@ public class PlayerController : MonoBehaviour
 
         agent.isStopped = true;
         //attack
-        if (lastAttackTime < 0)
+        if (lastAttackTime < 0&& !characterStats.isCriticaled)
         {
             anim.SetBool("Critical", characterStats.isCritical);
             anim.SetTrigger("Attack");
@@ -90,8 +93,13 @@ public class PlayerController : MonoBehaviour
         void Update()
         {
             isDead = characterStats.CurrentHealth == 0;
+            if (characterStats.isCriticaled)
+            {
+                AudioManager.instance.PlaySound(Hurt, transform.position);
+                characterStats.isCriticaled = false;
+            } 
 
-             if (isDead)
+        if (isDead)
                 GameManager.Instance.NotifyObservers();
 
     //        // KeyboardControl();

@@ -10,14 +10,17 @@ public class MainMenuUI : MonoBehaviour
     Button continueBtn;
     Button quitBtn;
 
+
+
     PlayableDirector director;
 
     void Awake()
     {
-       
+
+
         newGameBtn = transform.GetChild(1).GetComponent<Button>();
-        continueBtn= transform.GetChild(2).GetComponent<Button>();
-        quitBtn= transform.GetChild(3).GetComponent<Button>();
+        continueBtn = transform.GetChild(2).GetComponent<Button>();
+        quitBtn = transform.GetChild(3).GetComponent<Button>();
 
         newGameBtn.onClick.AddListener(PlayTimeline);
         continueBtn.onClick.AddListener(ContinueGame);
@@ -26,6 +29,7 @@ public class MainMenuUI : MonoBehaviour
         director = FindObjectOfType<PlayableDirector>();
         director.stopped += NewGame;
     }
+
 
     void PlayTimeline()
     {

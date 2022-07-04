@@ -488,6 +488,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 0}
   attack: {fileID: 8300000, guid: 14c15cb6377f123438b6dfdad50f1fe0, type: 3}
+  Hurt: {fileID: 8300000, guid: add915708b1c1004fa5f83d5e3cfc7da, type: 3}
 --- !u!136 &999693263
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -517,6 +518,7 @@ MonoBehaviour:
   templateData: {fileID: 11400000, guid: bde3ef758c7c29a4e8941e204269e049, type: 2}
   characterData: {fileID: 0}
   attackData: {fileID: 11400000, guid: 22d84049a88478d4689a1d0fb7a26213, type: 2}
+  isCriticaled: 0
   weaponSlot: {fileID: 4949584200418477890}
   isCritical: 0
 --- !u!54 &161686263784797767

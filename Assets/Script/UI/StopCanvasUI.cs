@@ -22,6 +22,7 @@ public class StopCanvasUI : MonoBehaviour
 
     void BackGame()
     {
+        AudioManager.instance.PlayMusic(0, 1);
         gameObject.SetActive(false);
         Time.timeScale = 1f;
     }

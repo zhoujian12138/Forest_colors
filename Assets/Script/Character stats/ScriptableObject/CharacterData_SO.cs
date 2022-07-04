@@ -29,6 +29,7 @@ public class CharacterData_SO : ScriptableObject
     public void UpdateExp(int point)
     {
         currentExp += point;
+     
         if(currentExp >= baseExp)
         {
             

@@ -9,7 +9,7 @@ public enum EnemyStates { GUARD, PATROL, CHASE, DEAD }
 [RequireComponent(typeof(CharacterStats))]
 public class EnemyController : MonoBehaviour,IEndGameObserver
 {
-    private EnemyStates enemyStates;
+    public EnemyStates enemyStates;
     private NavMeshAgent agent;
     protected Animator anim;
     private Collider coll;

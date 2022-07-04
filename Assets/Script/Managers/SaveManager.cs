@@ -16,13 +16,15 @@ public class SaveManager : Singleton<SaveManager>
         {
             if (once)
             {
-                once = false;           
+                once = false;
+                AudioManager.instance.StopMusic(0, 1);
                 Time.timeScale = 0f;
                 StopCanvasPrefab.SetActive(true);
             }
             else
             {
                 once = true;
+                AudioManager.instance.PlayMusic(0, 1);
                 StopCanvasPrefab.SetActive(false);
                 Time.timeScale = 1f;
             }

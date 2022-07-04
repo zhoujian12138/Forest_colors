@@ -9,7 +9,7 @@ public class PlayerHealthUI : MonoBehaviour
     Image healthSlider;
     Image expSlider;
     public AudioClip levelUP;
-    int level = 2;
+    int level ;
 
     void Awake()
     {
@@ -31,7 +31,10 @@ public class PlayerHealthUI : MonoBehaviour
         UpdateExp();
     }
 
-    
+    void Start()
+    {
+        level = GameManager.Instance.playerStats.characterData.currentLevel + 1;
+    }
 
     void UpdateHealth()
     {
