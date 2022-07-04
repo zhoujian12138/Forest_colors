@@ -48,8 +48,14 @@ public class OptionUI : MonoBehaviour
                 }
                 else
                 {
+                    //没有任务，接受新任务
                     QuestManager.Instance.tasks.Add(newTask);
                     QuestManager.Instance.GetTask(newTask.questData).IsStarted = true;
+
+                    foreach (var requireItem in newTask.questData.RequireTargetName())
+                    {
+                        InventoryManager.Instance.CheckQuestItemInBag(requireItem);
+                    }
                 }
             }
         }

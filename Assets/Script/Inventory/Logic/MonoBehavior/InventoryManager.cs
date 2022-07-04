@@ -10,7 +10,7 @@ public class InventoryManager : Singleton<InventoryManager>
         public SlotHolder originalHolder;
         public RectTransform originalParent;
     }
-    //最后添加模板用于保存数据
+    //×??ó?í????°?????±???????
     [Header("Inventory Data")]
     public InventoryData_SO inventoryTemplate;
     public InventoryData_SO inventoryData;
@@ -89,7 +89,7 @@ public class InventoryManager : Singleton<InventoryManager>
         healthText.text = health.ToString();
         attackText.text = min + "-" + max;
     }
-    #region 检查一个物品是否在每一个Slot范围内
+    #region ?ì?é????????????????????Slot???§??
     public bool CheckInInventoryUI(Vector3 position)
     {
         for(int i = 0; i < inventoryUI.slotHolders.Length; i++)
@@ -133,7 +133,6 @@ public class InventoryManager : Singleton<InventoryManager>
     }
     #endregion
 
-    //检测背包和快捷栏物品
     public InventoryItem QuestItemInBag(ItemData_SO questItem)
     {
         return inventoryData.items.Find(i => i.itemData == questItem);
@@ -143,4 +142,27 @@ public class InventoryManager : Singleton<InventoryManager>
     {
         return actionData.items.Find(i => i.itemData == questItem);
     }
-}
+ #region 检测任务物品
+
+    public void CheckQuestItemInBag(string questItemName)
+    {
+        foreach (var item in inventoryData.items)
+        {
+            if(item.itemData != null)
+            {
+                if (item.itemData.itemName == questItemName)
+                    QuestManager.Instance.UpdateQuestProgress(item.itemData.itemName, item.amount);
+            }
+        }
+
+        foreach (var item in actionData.items)
+        {
+            if (item.itemData != null)
+            {
+                if (item.itemData.itemName == questItemName)
+                    QuestManager.Instance.UpdateQuestProgress(item.itemData.itemName, item.amount);
+            }
+        }
+    }
+    #endregion
+	}

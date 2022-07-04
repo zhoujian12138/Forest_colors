@@ -32,7 +32,7 @@ public class QuestData_SO : ScriptableObject
 
         if(isComplete)
         {
-            Debug.Log("任务完成");
+            Debug.Log("?????ê??");
         }
     }
 
@@ -72,5 +72,16 @@ public class QuestData_SO : ScriptableObject
             InventoryManager.Instance.inventoryUI.RefreshUI();
             InventoryManager.Instance.actionUI.RefreshUI();
         }
-    }
-}
+	}
+		
+  public List<string> RequireTargetName()
+    {
+        List<string> targetNameList = new List<string> ();
+
+        foreach (var require in questRequires)
+        {
+            targetNameList.Add(require.name);
+        }
+        return targetNameList;
+	}
+  }
