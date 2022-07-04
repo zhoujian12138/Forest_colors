@@ -23,4 +23,5 @@ public class QuestData_SO : ScriptableObject
 
     public List<QuestRequire> questRequires = new List<QuestRequire> ();
 
+  
 }
