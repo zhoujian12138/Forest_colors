@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+
 public class DialogueUI : Singleton<DialogueUI>
 {
    [Header("Basic Elements")]
@@ -43,6 +45,7 @@ public class DialogueUI : Singleton<DialogueUI>
 
         mainText.text = "";
         mainText.text = piece.text;
+      
 
         if(piece.options.Count == 0 && currentData.dialoguePieces.Count > 0)
         {
