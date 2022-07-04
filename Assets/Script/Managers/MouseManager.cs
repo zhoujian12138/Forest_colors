@@ -31,11 +31,12 @@ public class MouseManager : Singleton<MouseManager>
     void SetCursorTexture()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //if (InteractWithUI())
-        //{
-        //    Cursor.SetCursor(point, Vector2.zero, CursorMode.Auto);
-        //    return;
-        //}
+
+        if (InteractWithUI())
+        {
+            Cursor.SetCursor(point, Vector2.zero, CursorMode.Auto);
+            return;
+        }
 
         if (Physics.Raycast(ray, out hitInfo))
         {
