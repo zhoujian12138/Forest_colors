@@ -31,9 +31,12 @@ public class QuestUI : Singleton<QuestUI>
         {
             isOpen = !isOpen;
             questPanel.SetActive(isOpen);
-            questContentText.text = string.Empty;
+            questContentText.text = "";
             //œ‘ æ√Ê∞Âƒ⁄»›
             SetupQuestList();
+
+            if(!isOpen)
+                tooltip.gameObject.SetActive(false);
         }
     }
 
@@ -56,13 +59,14 @@ public class QuestUI : Singleton<QuestUI>
         {
             var newTask = Instantiate(questNameButton, questListTransform);
             newTask.SetupNameButton(task.questData);
-            newTask.questContentText = questContentText;
+          //  newTask.questContentText = questContentText;
         }
 
     }
 
     public void SetupRequireList(QuestData_SO questData)
     {
+        questContentText.text = questData.description;
         foreach (Transform item in requireTransform)
         {
             Destroy(item.gameObject);
@@ -75,4 +79,9 @@ public class QuestUI : Singleton<QuestUI>
 
     }
 
+    public void SetupRewardItem(ItemData_SO itemData, int amount)
+    {
+        var item = Instantiate(rewardUI, rewardTransform);
+        item.SetupItemUI(itemData, amount);
+    }
 }
