@@ -12,4 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aed8209a6d2b4554db073c8ecd194e34, type: 3}
   m_Name: Hero Progress
   m_EditorClassIdentifier: 
-  dialoguePieces: []
+  dialoguePieces:
+  - ID: Piece01
+    image: {fileID: 0}
+    text: "\u8611\u83C7\u53EF\u4EE5\u62FE\u53D6\u6216\u51FB\u6740\u53F2\u83B1\u59C6\u83B7\u53D6\u55F7"
+    quest: {fileID: 0}
+    options: []

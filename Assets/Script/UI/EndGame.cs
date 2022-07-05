@@ -31,7 +31,7 @@ public class EndGame : MonoBehaviour
 
     IEnumerator ShowUI()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1.5f);
         UI.SetActive(true);
         yield break;
     }

@@ -12,4 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aed8209a6d2b4554db073c8ecd194e34, type: 3}
   m_Name: Hero Complete
   m_EditorClassIdentifier: 
-  dialoguePieces: []
+  dialoguePieces:
+  - ID: Piece01
+    image: {fileID: 0}
+    text: "\u4F60\u6210\u529F\u5566\uFF01\u592A\u8C22\u8C22\u5566\uFF0C\u8FD9\u4E9B\u662F\u6211\u7ED9\u4F60\u7684\u5956\u52B1"
+    quest: {fileID: 11400000, guid: 2d72408511d63a843be99e957f588d78, type: 2}
+    options:
+    - text: "\u8C22\u8C22\u4F60\uFF01"
+      targetID: 
+      takeQuest: 1

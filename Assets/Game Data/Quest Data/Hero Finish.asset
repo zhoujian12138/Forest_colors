@@ -12,4 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aed8209a6d2b4554db073c8ecd194e34, type: 3}
   m_Name: Hero Finish
   m_EditorClassIdentifier: 
-  dialoguePieces: []
+  dialoguePieces:
+  - ID: Piece01
+    image: {fileID: 0}
+    text: "\u771F\u7684\u5341\u5206\u611F\u8C22\u4F60\u55F7"
+    quest: {fileID: 0}
+    options: []
