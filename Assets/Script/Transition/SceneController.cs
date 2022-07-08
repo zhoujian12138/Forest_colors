@@ -46,7 +46,7 @@ public class SceneController : Singleton<SceneController>,IEndGameObserver
         SceneFader fade = Instantiate(sceneFaderPrefab);
         SaveManager.Instance.SavePlayerData();
         InventoryManager.Instance.SaveData();
-        QuestManager.Instance.SaveQuestManager();
+        //QuestManager.Instance.SaveQuestManager();
         if (SceneManager.GetActiveScene().name != sceneName)
         {
             yield return StartCoroutine(fade.FadeOut(0.5f));

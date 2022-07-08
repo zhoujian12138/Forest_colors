@@ -37,7 +37,6 @@ public class QuestManager : Singleton<QuestManager>
         for(int i=0;i<=tasks.Count;i++)
         {
             SaveManager.Instance.Save(tasks[i].questData, "task" + i);
-
         }
     }
 

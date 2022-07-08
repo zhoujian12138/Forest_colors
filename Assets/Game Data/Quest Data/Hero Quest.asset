@@ -13,13 +13,16 @@ MonoBehaviour:
   m_Name: Hero Quest
   m_EditorClassIdentifier: 
   questName: "\u5E2E\u5C0F\u72D0\u72F8\u8D76\u8D70\u53F2\u83B1\u59C6"
-  description: "\u5C06\u5C0F\u72D0\u72F8\u8EAB\u540E\u76842\u4E2A\u53F2\u83B1\u59C6\u548C\u4E00\u4E2A\u53F2\u83B1\u59C6\u9996\u9886\u90FD\u7ED9\u51FB\u6740\u6389\uFF0C\u5C0F\u72D0\u72F8\u4F1A\u7ED9\u4F60\u4E00\u4E9B\u5956\u52B1\u3002"
+  description: "\u5C06\u5C0F\u72D0\u72F8\u8EAB\u540E\u7684\u4E00\u4E2A\u53F2\u83B1\u59C6\u9996\u9886\u7ED9\u51FB\u6740\u6389\uFF0C\u5E76\u4E14\u6536\u96C6\u4E24\u4E2A\u5927\u8611\u83C7\uFF0C\u5C0F\u72D0\u72F8\u4F1A\u7ED9\u4F60\u4E00\u4E9B\u5956\u52B1\u3002"
   isStarted: 0
   isComplete: 0
   isFinished: 0
   questRequires:
   - name: "\u5927\u8611\u83C7"
     requireAmount: 2
+    currentAmount: 0
+  - name: TurtleShell
+    requireAmount: 1
     currentAmount: 0
   rewards:
   - itemData: {fileID: 11400000, guid: 2c0429e7e20f58343be2f0019af1b51b, type: 2}
